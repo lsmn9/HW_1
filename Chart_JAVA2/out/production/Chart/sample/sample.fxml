@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <Button layoutX="447.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#message" style="-fx-background-color: #090943;" text="Отправить" textFill="#e2e2e8" underline="true" />
+      <TextField fx:id="t1" layoutX="101.0" layoutY="302.0" onAction="#message" prefHeight="44.0" prefWidth="281.0" promptText="Введите сообщение" style="-fx-border-color: #090943;" />
+      <TextArea fx:id="t2" layoutX="98.0" layoutY="48.0" prefHeight="213.0" prefWidth="281.0" promptText="Здесь пока нет сообщений" style="-fx-border-color: #090943; -fx-background-color: #090943;" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font></TextArea>
+   </children>
+</AnchorPane>
