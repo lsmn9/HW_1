@@ -3,8 +3,11 @@
     <extensionMap>
       <mapping pattern="as" type="CLASS" />
       <mapping pattern="Task_1" type="CLASS" />
+      <mapping pattern="lessonDB" type="DBN-SQL" />
       <mapping pattern="asd" type="JAVA" />
+      <mapping ext="db" type="Native" />
       <mapping pattern="user" type="PLAIN_TEXT" />
+      <mapping pattern="DataBase" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>
