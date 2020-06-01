@@ -3,6 +3,7 @@
     <extensionMap>
       <mapping pattern="as" type="CLASS" />
       <mapping pattern="Task_1" type="CLASS" />
+      <mapping pattern="students" type="DBN-SQL" />
       <mapping pattern="lessonDB" type="DBN-SQL" />
       <mapping pattern="asd" type="JAVA" />
       <mapping ext="db" type="Native" />
