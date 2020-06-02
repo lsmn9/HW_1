@@ -8,6 +8,7 @@
       <mapping pattern="asd" type="JAVA" />
       <mapping ext="db" type="Native" />
       <mapping pattern="user" type="PLAIN_TEXT" />
+      <mapping pattern="loginpass" type="PLAIN_TEXT" />
       <mapping pattern="DataBase" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
