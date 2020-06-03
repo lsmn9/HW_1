@@ -3,11 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="223.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AuthController">
+<AnchorPane prefHeight="223.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AuthController">
    <children>
-      <TextField fx:id="login" layoutX="120.0" layoutY="79.0" promptText="Введите логин" />
-      <TextField fx:id="pass" layoutX="120.0" layoutY="124.0" promptText="Введите пароль" />
-      <Label layoutX="120.0" layoutY="42.0" prefHeight="17.0" prefWidth="115.0" text="Авторизация" />
-      <Button fx:id="ok" layoutX="147.0" layoutY="166.0" mnemonicParsing="false" onAction="#auth" text="ok" />
+      <TextField fx:id="login" layoutX="168.0" layoutY="79.0" promptText="Введите логин" />
+      <TextField fx:id="pass" layoutX="168.0" layoutY="119.0" promptText="Введите пароль" />
+      <Label fx:id="info" layoutX="45.0" layoutY="14.0" prefHeight="54.0" prefWidth="246.0" text="Авторизация" />
+      <Button fx:id="ok" layoutX="224.0" layoutY="175.0" mnemonicParsing="false" onAction="#auth" prefHeight="26.0" prefWidth="78.0" text="ok" />
+      <CheckBox fx:id="regist" layoutX="374.0" layoutY="14.0" mnemonicParsing="false" onAction="#registChoice" onMouseClicked="#labelName" text="Register" />
+      <CheckBox fx:id="auth" layoutX="374.0" layoutY="41.0" mnemonicParsing="false" onAction="#authChoice" onMouseClicked="#labelName" selected="true" text="Authorization" />
    </children>
 </AnchorPane>
