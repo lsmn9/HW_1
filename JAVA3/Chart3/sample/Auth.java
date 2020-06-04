@@ -11,7 +11,7 @@ public class Auth extends Application {
 
     static Stage stage;
 
-        public  Stage getStage() {
+    public  Stage getStage() {
         return stage;
     }
 
@@ -23,7 +23,7 @@ public class Auth extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("AuthWindow.fxml"));
         primaryStage.setTitle("Авторизация");
-        primaryStage.setScene(new Scene(root, 400, 200));
+        primaryStage.setScene(new Scene(root, 530, 230));
         setStage(primaryStage);
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(e -> Platform.exit());

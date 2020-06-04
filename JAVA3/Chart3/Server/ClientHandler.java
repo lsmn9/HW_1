@@ -1,6 +1,5 @@
 package Server;
 
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -32,50 +31,61 @@ public class ClientHandler implements Runnable {
     }
 
     public void welcome() throws IOException {
-        out.writeUTF("Hello, " + nickName);
+        out.writeUTF("Hello, write you message :)");
         out.flush();
     }
-
+    // метод общего сообщения
     public void broadCastMessage(String message) throws IOException {
         for (ClientHandler client : Server.getClients()) {
-            if (!client.equals(this)) {
+            if (client.equals(this)) {
             client.sendMessage( "You: " + message);
             }
             else client.sendMessage( getNickName()+": " + message);
         }
     }
 
-    public void sendMessage( String message) throws IOException {
+// метод личного сообщения
+    public void privateMsg(String message) throws IOException {
+        for (ClientHandler client : Server.getClients()){   // проходим по пользователям
+            if (client.equals(this))client.sendMessage( "You: " + message);
+            if (message.startsWith("/w" + client.getNickName())){ // если находит /w + существующий клиент
+                client.sendMessage(getNickName()+"**:"                   // тогда этому клиенту в личку с пометкой **
+                + message.substring ("/w".length()+ client.getNickName().length()));
+            } // номер индекса,чтобы шаблон отправки не дублировались
+        }
+    }
+
+    private void sendMessage( String message) throws IOException {
         out.writeUTF(message);
         out.flush();
     }
-// ------------------------метод для сообщения в личку ----------------------------
-    public void privateMsg(String message) throws IOException {
-        for (ClientHandler client : Server.getClients()){   // проходим по пользователям
-            if (message.startsWith("/w " + client.getNickName())){ // если находит /w + существующий клиент
-        client.sendMessage(getNickName()+"**:"                   // тогда этому клиенту в личку с пометкой **
-                + message.substring ("/w ".length()+ client.getNickName().length())+"\n");
-            } // номер индекса,чтобы шаблон отправки не дубль.
-        }
-    }
-//---------------------------------------------------------------------------------------------------
+
     @Override
     public void run() {
         while (running) {
             try {
                 if (socket.isConnected()) {
                     String clientMessage = in.readUTF();
+                    // устанавливаем ник
+                    if (clientMessage.startsWith("/mynickis")){
+                        String nick = clientMessage.substring("/mynickis".length());
+                        clientMessage = nick + " is here!";
+                        setNickName(nick);
+                    }
+                    // выходим и сообщаем об этом
                     if (clientMessage.equals("_exit_")) {
                         Server.getClients().remove(this);
                         sendMessage(clientMessage);
-                        System.out.println(getNickName() +" покинул чат!\n"); // добавил в случае выхода из чата
+                        System.out.println(getNickName() +" покинул чат!\n"); // в консоль
+                        broadCastMessage(getNickName() +" покинул чат!");  // другим клиентам
                         break;
                     }
+                    // личное сообщение
                     if (clientMessage.startsWith("/w")){ // обозначил таким образом if
                         privateMsg(clientMessage); // в случае совпадения вызывает метод и печатает в личку
                         }
                     else {System.out.println(nickName+": "+clientMessage +"\n"); // если нет, то в общий чат
-                    broadCastMessage(clientMessage); // закомитил чтобы ОБЩИЕ сообщения шли ТОЛЬКО в общий чат
+                    broadCastMessage(clientMessage);
                         }
                 }
             } catch (IOException e) {
