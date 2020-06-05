@@ -1,14 +1,9 @@
 package sample;
 
 import javafx.application.Platform;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import org.jetbrains.annotations.NotNull;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import javafx.scene.control.*;
+
+import java.io.*;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ChartController {
-
+    
     public Button off, on; // кнопки подключения, отключения
     public TextField t1; // место ввода
     public TextArea t2; //окно чата
@@ -26,7 +21,7 @@ public class ChartController {
     private  static  Socket socket;
     private  static DataInputStream in;
     private  static DataOutputStream out;
-    int cnt =0; //счетчик
+    int cnt =0; //счетчик для некоторых действий
 
     Thread threadMain = new Thread(()->{
 
@@ -48,9 +43,18 @@ public class ChartController {
                     e.printStackTrace();
                     running = false;
                 }
-                t2.setText(message);
-                saveText(t2);
+                if (cnt==1){ // cnt станет =1, после запуска, это ниже
+                    saveText(t2); //чтобы история не пропала
+                    cnt++; // чтобы повтороно не заходить
+                }
+                t2.appendText(message+"\n");
                 System.out.println(message);
+                // запись истории в файл = логин.txt
+                File file = new File("src/History/"+Chart.stage.getTitle().substring(Chart.titlelong)+"history.txt");
+                file.createNewFile(); // если файла нет - создаем его
+                try (PrintWriter writer = new PrintWriter(new FileOutputStream(file, true))){
+                    writer.println(" "+message); //пробел дабвил для реализации чтения кириллицы из истории
+                }
             }
         } catch (Exception e) {
             t2.setText("Ошибка подключения");
@@ -58,13 +62,47 @@ public class ChartController {
         }
     });
 
-    public void connection() { //метод подключения
+    public void connection() throws IOException { //метод подключения
 
+        // при подключении выводим историю
+        String path = "src/History/"+Chart.stage.getTitle().substring(Chart.titlelong)+"history.txt"; // путь файла
+        File file = new File(path);
+        if (file.exists() & file.length()>0){ // если такой файл существует(то есть есть история)
+            try (RandomAccessFile random1 = new RandomAccessFile(path,"r")) {
+                String history="";
+                int bytes = 0;
+                int lines = 0; // общее количество строк
+                final int LINES = 5; // сколько строк с конца выводить
+                while (bytes != -1) { // пока есть, что считывать
+                    random1.readLine(); // читаем строчку
+                    lines++; // после прочтения +1 строка
+                    bytes = random1.read(); // проверяем есть ли байты еще
+                }
+                random1.close();
+                try (RandomAccessFile random2 = new RandomAccessFile(path, "r")){
+                    bytes = 0; // обнуляем
+                    int position =0; // внутренний счетчик
+                    while (bytes!=-1){
+                        byte [] k = random2.readLine().getBytes("ISO-8859-1"); //считываем строку
+                        position++;
+                        bytes = random2.read();
+                        if (lines <= LINES){ //если строк меньше необходимых
+                            history = history + new String(k)+"\n"; //выводим всю историю
+                        }else{
+                            if (position > (lines-LINES)){ //если больше необходимых
+                                history = history + new String(k)+"\n"; // только часть со строки position
+                            }
+                        }
+                    }
+                    random2.close();
+                    t2.setText(history); // выводим на экран
+                }
+            }
+        }
         threadMain.start(); //запускаем поток
         off.setDisable(false);
         on.setDisable(true);
         line.setText("Онлайн");
-
    }
 
     public void disconnection() throws ClassNotFoundException, SQLException, IOException { // метод отключения
@@ -85,8 +123,9 @@ public class ChartController {
         try {
             // пока по-другому не придумал
         if(socket.isConnected()) { //если есть соединение
-            if (cnt++==0){ // и счетчик =0, который сразу увеличивается, так нужно только для первого сообщения
+            if (cnt==0){ // и счетчик =0, который сразу увеличивается, так как нужно только для первого сообщения
                 sendMsg("/mynickis" + Chart.stage.getTitle().substring(Chart.titlelong)); // посылаем свой логин для обработки в ClientHandler
+                cnt++; // сnt = 1;
             }
         }
             sendMsg(t1.getText()); // обычный посыл сообщения
@@ -97,14 +136,16 @@ public class ChartController {
         }
     }
 
-    private void saveText (@NotNull TextArea ta){
-        text1 = ta.getText()+ "\n \n" + text1;
+    private void saveText (TextArea ta){
+        text1 = text1 + ta.getText();
         ta.setText(text1);
     }
 
-    private static void sendMsg(String msg) throws IOException {
+    private void sendMsg(String msg) throws IOException {
         out.writeUTF(msg);
         out.flush();
     }
+
+
 }
 

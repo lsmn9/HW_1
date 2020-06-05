@@ -1,0 +1,12 @@
+ You: Hello! I'm online!
+ You: Будет
+ You: выводить
+ You: последние
+ You: пять
+ You: строчек
+ You: Hello! I'm online!
+ You: 1
+ You: 2
+ You: 3
+ You: 4
+ You: 5

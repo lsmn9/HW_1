@@ -19,7 +19,7 @@ public class ClientHandler implements Runnable {
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
         running = true;
-        welcome();
+       // welcome();
     }
 
     public String getNickName() {
@@ -47,7 +47,7 @@ public class ClientHandler implements Runnable {
 // метод личного сообщения
     public void privateMsg(String message) throws IOException {
         for (ClientHandler client : Server.getClients()){   // проходим по пользователям
-            if (client.equals(this))client.sendMessage( "You: " + message);
+            if (client.equals(this))client.sendMessage( "You->" + message.substring("/w".length()));
             if (message.startsWith("/w" + client.getNickName())){ // если находит /w + существующий клиент
                 client.sendMessage(getNickName()+"**:"                   // тогда этому клиенту в личку с пометкой **
                 + message.substring ("/w".length()+ client.getNickName().length()));
@@ -69,7 +69,7 @@ public class ClientHandler implements Runnable {
                     // устанавливаем ник
                     if (clientMessage.startsWith("/mynickis")){
                         String nick = clientMessage.substring("/mynickis".length());
-                        clientMessage = nick + " is here!";
+                        clientMessage = "Hello! I'm online!";
                         setNickName(nick);
                     }
                     // выходим и сообщаем об этом
