@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/conformation"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="107dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginBottom="200dp"
+        android:background="#3F51B5"
+        android:bufferType="normal"
+        android:fontFamily="sans-serif-black"
+        android:stateListAnimator="@android:anim/anticipate_interpolator"
+        android:text="Показать"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/full_Info"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Switch
+        android:id="@+id/full_Info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:text="Выводить подробную информацию"
+        app:layout_constraintStart_toStartOf="@+id/cityName"
+        app:layout_constraintTop_toBottomOf="@+id/cityName" />
+
+    <EditText
+        android:id="@+id/cityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="136dp"
+        android:backgroundTint="#3F51B5"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Введите город"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ветер"
+        app:layout_constraintStart_toStartOf="@+id/full_Info"
+        app:layout_constraintTop_toBottomOf="@+id/full_Info" />
+
+    <CheckBox
+        android:id="@+id/pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Давление"
+        app:layout_constraintStart_toStartOf="@+id/wind"
+        app:layout_constraintTop_toBottomOf="@+id/wind" />
+
+    <CheckBox
+        android:id="@+id/humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Влажность"
+        app:layout_constraintStart_toStartOf="@+id/pressure"
+        app:layout_constraintTop_toBottomOf="@+id/pressure" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
