@@ -2,20 +2,26 @@ package com.example.hw1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MyApp";
+    private static String LONDON_INFO = "https://en.wikipedia.org/wiki/London";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.city_choice);
+        setContentView(R.layout.activity_main);
         String instanceState;
         if (savedInstanceState == null){
             instanceState = "Первый запуск!";
@@ -25,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(getApplicationContext(), instanceState + "Метод onCreate()", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onCreate" );
+        TextView txw = (TextView) findViewById(R.id.City);
+        txw.setOnClickListener(this);
     }
 
     @Override
@@ -82,5 +90,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy" );
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(LONDON_INFO));
+        startActivity(browser);
+    }
 }
 

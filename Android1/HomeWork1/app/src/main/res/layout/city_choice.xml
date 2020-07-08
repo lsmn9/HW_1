@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/conformation"
+        android:id="@+id/confirmation"
         style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="107dp"
         android:layout_height="48dp"
