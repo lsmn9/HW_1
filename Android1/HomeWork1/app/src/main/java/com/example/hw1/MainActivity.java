@@ -1,8 +1,11 @@
 package com.example.hw1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "MyApp";
     private static String LONDON_INFO = "https://en.wikipedia.org/wiki/London";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "onCreate" );
         TextView txw = (TextView) findViewById(R.id.City);
         txw.setOnClickListener(this);
+
     }
 
     @Override
@@ -54,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         Toast.makeText(getApplicationContext(), "Метод onResume()", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onResume" );
+
     }
 
     @Override
@@ -94,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(LONDON_INFO));
         startActivity(browser);
+    }
+
+    public void settingsChoice (View view){
+
     }
 }
 
