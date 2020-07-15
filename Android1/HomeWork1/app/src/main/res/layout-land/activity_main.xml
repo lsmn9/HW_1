@@ -16,8 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#B6D8D5"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="-44dp">
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="166dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,20 +26,19 @@
             <fragment
                 android:id="@+id/fragment"
                 android:name="com.example.hw1.Fragmet1"
-                android:layout_width="313dp"
-                android:layout_height="290dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                android:layout_width="409dp"
+                android:layout_height="226dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Weather"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="208dp"
+                android:layout_marginTop="140dp"
+                android:layout_marginEnd="24dp"
                 android:text="Обновить"
                 app:layout_constraintEnd_toEndOf="@+id/Weather"
                 app:layout_constraintTop_toBottomOf="@+id/Weather" />
@@ -54,13 +53,12 @@
                 android:background="#D1B1B1"
                 app:layout_constraintBottom_toTopOf="@+id/Weather"
                 app:layout_constraintStart_toEndOf="@+id/City"
-                app:srcCompat="@android:drawable/editbox_background"
                 tools:srcCompat="@drawable/ic_baseline_cloud_queue_24" />
 
             <TextView
                 android:id="@+id/Weather"
-                android:layout_width="300dp"
-                android:layout_height="150dp"
+                android:layout_width="317dp"
+                android:layout_height="85dp"
                 android:layout_marginStart="51dp"
                 android:layout_marginTop="128dp"
                 android:layout_marginEnd="60dp"
@@ -93,6 +91,16 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/Weather"
                 app:layout_constraintStart_toStartOf="@+id/Weather" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/forecast"
+                android:layout_width="313dp"
+                android:layout_height="122dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="428dp"
+                android:background="#EFC5C5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Weather" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

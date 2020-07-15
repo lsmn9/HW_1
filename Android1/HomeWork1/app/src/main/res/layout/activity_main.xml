@@ -37,8 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="208dp"
+                android:layout_marginTop="140dp"
+                android:layout_marginEnd="24dp"
                 android:text="Обновить"
                 app:layout_constraintEnd_toEndOf="@+id/Weather"
                 app:layout_constraintTop_toBottomOf="@+id/Weather" />
@@ -53,18 +53,20 @@
                 android:background="#D1B1B1"
                 app:layout_constraintBottom_toTopOf="@+id/Weather"
                 app:layout_constraintStart_toEndOf="@+id/City"
-                app:srcCompat="@android:drawable/editbox_background"
+                app:srcCompat="@drawable/ic_baseline_cloud_queue_24"
                 tools:srcCompat="@drawable/ic_baseline_cloud_queue_24" />
 
             <TextView
                 android:id="@+id/Weather"
-                android:layout_width="300dp"
-                android:layout_height="150dp"
+                android:layout_width="317dp"
+                android:layout_height="85dp"
                 android:layout_marginStart="51dp"
                 android:layout_marginTop="128dp"
                 android:layout_marginEnd="60dp"
+                android:autoText="true"
                 android:background="#E8D7D7"
                 android:fontFamily="sans-serif-black"
+                android:text="+18..+20"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="36sp"
@@ -74,7 +76,6 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="+18 ..+20"
                 tools:visibility="visible" />
 
             <TextView
@@ -92,6 +93,16 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/Weather"
                 app:layout_constraintStart_toStartOf="@+id/Weather" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/forecast"
+                android:layout_width="313dp"
+                android:layout_height="122dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="43dp"
+                android:background="#EFC5C5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Weather" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

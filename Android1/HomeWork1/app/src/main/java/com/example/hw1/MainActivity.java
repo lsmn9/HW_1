@@ -2,6 +2,9 @@ package com.example.hw1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -14,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,6 +31,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         String instanceState;
+        ArrayList<String> temperature = new ArrayList<>();
+        temperature.add("+15..+17");
+        temperature.add("+19..+21");
+        temperature.add("+17..+19");
+        ArrayList<String> descript = new ArrayList<>();
+        descript.add("Завтра");
+        descript.add("Через 1 день");
+        descript.add("Через 2 дня");
+        initRecView(temperature, descript);
         if (savedInstanceState == null){
             instanceState = "Первый запуск!";
         }
@@ -38,6 +51,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView txw = (TextView) findViewById(R.id.City);
         txw.setOnClickListener(this);
 
+    }
+
+    private void initRecView(ArrayList<String> arrayList, ArrayList<String> arrayList1) {
+        RecyclerView recyclerView = findViewById(R.id.forecast);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
+        itemDecoration.setDrawable(getDrawable(R.drawable.separator));
+        recyclerView.setLayoutManager(manager);
+        recyclerView.addItemDecoration(itemDecoration);
+        MyAdapt myAdapt = new MyAdapt(arrayList, arrayList1);
+        recyclerView.setAdapter(myAdapt);
     }
 
     @Override
@@ -102,8 +127,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(browser);
     }
 
-    public void settingsChoice (View view){
-
-    }
 }
 
