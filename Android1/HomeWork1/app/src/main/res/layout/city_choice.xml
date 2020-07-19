@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/confirmation"
         style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="107dp"
@@ -28,31 +29,34 @@
 
     <Switch
         android:id="@+id/full_Info"
+        style="@style/Widget.AppCompat.CompoundButton.Switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
         android:text="Выводить подробную информацию"
-        app:layout_constraintStart_toStartOf="@+id/cityName"
-        app:layout_constraintTop_toBottomOf="@+id/cityName" />
+        android:textColor="@android:color/background_dark"
+        app:layout_constraintStart_toStartOf="@+id/cityNameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/cityNameLayout" />
 
-    <EditText
-        android:id="@+id/cityName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="136dp"
-        android:backgroundTint="#3F51B5"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Введите город"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <EditText-->
+<!--        android:id="@+id/cityName1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="112dp"-->
+<!--        android:layout_marginEnd="136dp"-->
+<!--        android:backgroundTint="#3F51B5"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:text="Введите город"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <CheckBox
         android:id="@+id/wind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ветер"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintStart_toStartOf="@+id/full_Info"
         app:layout_constraintTop_toBottomOf="@+id/full_Info" />
 
@@ -61,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Давление"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintStart_toStartOf="@+id/wind"
         app:layout_constraintTop_toBottomOf="@+id/wind" />
 
@@ -69,7 +74,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Влажность"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintStart_toStartOf="@+id/pressure"
         app:layout_constraintTop_toBottomOf="@+id/pressure" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cityNameLayout"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#3F51B5"
+        android:ems="10"
+        android:textColor="@android:color/background_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cityName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите город"
+            android:textColorHint="@android:color/background_dark"
+            android:textColor="@android:color/background_dark" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

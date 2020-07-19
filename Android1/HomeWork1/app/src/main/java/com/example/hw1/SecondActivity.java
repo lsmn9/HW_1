@@ -2,13 +2,13 @@ package com.example.hw1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class SecondActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,10 +28,11 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(this, MainActivity.class);
-        EditText et = (EditText) findViewById(R.id.cityName);
+        TextInputEditText et = findViewById(R.id.cityName);
         if (et.getText().toString().equals("London"))
         {startActivity(intent);}
-        else Toast.makeText(getApplicationContext(), "Wrong City", Toast.LENGTH_SHORT).show();
+        else Snackbar.make (view, "Wrong City", Snackbar.LENGTH_SHORT).
+                setAction("Action", null).show();
 
     }
 
