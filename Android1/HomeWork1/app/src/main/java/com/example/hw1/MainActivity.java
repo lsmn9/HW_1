@@ -1,6 +1,7 @@
 package com.example.hw1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "onCreate" );
         TextView txw = (TextView) findViewById(R.id.City);
         txw.setOnClickListener(this);
+
 
     }
 
