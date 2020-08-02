@@ -136,6 +136,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/cityNameLayout"
                 tools:layout_editor_absoluteX="6dp" />
 
+            <TextView
+                android:id="@+id/hum_TxtV"
+                android:layout_width="79dp"
+                android:layout_height="25dp"
+                android:text="hum"
+                app:layout_constraintStart_toEndOf="@+id/humidity"
+                app:layout_constraintTop_toBottomOf="@+id/pressure" />
+
+            <TextView
+                android:id="@+id/pres_TxtV"
+                android:layout_width="65dp"
+                android:layout_height="25dp"
+                app:layout_constraintStart_toEndOf="@+id/pressure"
+                app:layout_constraintTop_toTopOf="@+id/pressure" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
