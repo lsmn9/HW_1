@@ -37,32 +37,47 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.city_choice);
         Button btn = findViewById(R.id.confirmation);
         btn.setOnClickListener(this);
+        initToolBar();
+        initCheckBoxes();
+        initAndShowSensors();
+
+    }
+
+    private void initToolBar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        humbox = findViewById(R.id.humidity);
-        presbox= findViewById(R.id.pressure);
-        windbox = findViewById(R.id.wind);
+    }
 
-        mySM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    private void initCheckBoxes() {
+        humbox = findViewById(R.id.humidity);
+        presbox = findViewById(R.id.pressure);
+        windbox = findViewById(R.id.wind);
+    }
+
+    private void initAndShowSensors() {
+        this.mySM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         humSens = mySM.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-        humData =  findViewById(R.id.hum_TxtV);
+        humData = findViewById(R.id.hum_TxtV);
         presSens = mySM.getDefaultSensor(Sensor.TYPE_PRESSURE);
         presData = findViewById(R.id.pres_TxtV);
+
     }
 
     @Override
     protected void onResume() {
-       super.onResume();
-       // регистрируем слушатели
-       if (presSens != null){ // на случай, если не предусмотрен
-           mySM.registerListener(this, presSens, SensorManager.SENSOR_DELAY_NORMAL);
-       } else {
-           presData.setText("No_such_sensor");}
+        super.onResume();
 
-       if (humSens != null){
-           mySM.registerListener(this, humSens, SensorManager.SENSOR_DELAY_NORMAL);
-       } else {
-           humData.setText("No_such_sensor");}
+        if (presSens != null) {
+            mySM.registerListener(this, presSens, SensorManager.SENSOR_DELAY_NORMAL);
+        } else {
+            presData.setText("No_such_sensor");
+        }
+
+        if (humSens != null) {
+            mySM.registerListener(this, humSens, SensorManager.SENSOR_DELAY_NORMAL);
+        } else {
+            humData.setText("No_such_sensor");
+        }
     }
 
     @Override
@@ -87,11 +102,12 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
             windbox.setChecked(true);
             return true;
         }
-        if (id == R.id.menu_nothing){
+        if (id == R.id.menu_nothing) {
             humbox.setChecked(false);
             presbox.setChecked(false);
             windbox.setChecked(false);
-        return true;}
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -99,33 +115,54 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         TextInputEditText et = findViewById(R.id.cityName);
-        if (et.getText().toString().equals("London"))
-        {startActivity(intent);}
-        else Snackbar.make (view, "Wrong City", Snackbar.LENGTH_SHORT).
+        if (et.getText().toString().equals("London")) {
+            startActivity(intent);
+        } else Snackbar.make(view, "Wrong City", Snackbar.LENGTH_SHORT).
                 setAction("Action", null).show();
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        // если сенсор определенного типа записываем данные
-        if (sensorEvent.sensor.getType() == Sensor.TYPE_RELATIVE_HUMIDITY)
-        {humValue = sensorEvent.values[0];}
-        if (sensorEvent.sensor.getType()==Sensor.TYPE_PRESSURE)
-        {presValue = sensorEvent.values[0];}
-        // небольшой метод для вывода
-        boxIsChoosen(humbox, String.valueOf(humValue), humData);
-        boxIsChoosen(presbox,String.valueOf(presValue), presData);
+
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_RELATIVE_HUMIDITY) {
+
+            humValue = sensorEvent.values[0];
+
+        }
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_PRESSURE) {
+            final float HUMIDITY_NORM = 1000;
+            final float HUMIDITY_PERMITION = 20;
+            severeDeviation(HUMIDITY_NORM, sensorEvent.values[0], HUMIDITY_PERMITION);
+            presValue = sensorEvent.values[0];
+        }
+
+        boxIsChosen(humbox, String.valueOf(humValue), humData);
+        boxIsChosen(presbox, String.valueOf(presValue), presData);
 
     }
 
-    private void boxIsChoosen (CheckBox checkBox, String string, TextView textView){
-      // при выбранном чекбоксе показываем данные
-        if (checkBox.isChecked()){
+    private void severeDeviation(float norm, float current, float permition) {
+
+        if (Math.abs(norm - current) <= permition) {
+            {
+                stopService(new Intent(SecondActivity.this, Service_Pattern.class));
+            }
+        }
+
+        if (Math.abs(norm - current) > permition) {
+            startService(new Intent(SecondActivity.this, Service_Pattern.class));
+        }
+
+
+    }
+
+    private void boxIsChosen(CheckBox checkBox, String string, TextView textView) {
+        // при выбранном чекбоксе показываем данные
+        if (checkBox.isChecked()) {
             textView.setVisibility(View.VISIBLE);
             textView.setText(string);
-        }
-        else { // при невыбранном скрываем поле
+        } else { // при невыбранном скрываем поле
             textView.setVisibility(View.INVISIBLE);
         }
     }
