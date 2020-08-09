@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+
 public class SecondActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
 
     CheckBox humbox, presbox, windbox;
@@ -28,6 +29,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     Sensor humSens, presSens;
     TextView humData, presData;
     float humValue, presValue;
+
 
 
     @Override
@@ -38,6 +40,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         Button btn = findViewById(R.id.confirmation);
         btn.setOnClickListener(this);
         initToolBar();
+
         initCheckBoxes();
         initAndShowSensors();
 
@@ -62,6 +65,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         presData = findViewById(R.id.pres_TxtV);
 
     }
+
 
     @Override
     protected void onResume() {

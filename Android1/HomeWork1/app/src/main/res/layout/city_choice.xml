@@ -151,6 +151,15 @@
                 app:layout_constraintStart_toEndOf="@+id/pressure"
                 app:layout_constraintTop_toTopOf="@+id/pressure" />
 
+            <WebView
+                android:id="@+id/web"
+                android:layout_width="409dp"
+                android:layout_height="197dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cityName" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -7,17 +7,12 @@
     android:visibility="visible"
     tools:context=".MainActivity">
 
-    <!--    <ScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent">-->
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#B6D8D5"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="166dp">
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="51dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -49,12 +44,9 @@
                 android:layout_height="47dp"
                 android:layout_marginStart="60dp"
                 android:layout_marginBottom="32dp"
-                android:adjustViewBounds="false"
-                android:background="#D1B1B1"
                 app:layout_constraintBottom_toTopOf="@+id/Weather"
                 app:layout_constraintStart_toEndOf="@+id/City"
-                app:srcCompat="@drawable/ic_baseline_cloud_queue_24"
-                tools:srcCompat="@drawable/ic_baseline_cloud_queue_24" />
+                />
 
             <TextView
                 android:id="@+id/Weather"
@@ -93,6 +85,16 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/Weather"
                 app:layout_constraintStart_toStartOf="@+id/Weather" />
+
+            <EditText
+                android:id="@+id/ApiKey"
+                android:layout_width="278dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="11dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/forecast"
