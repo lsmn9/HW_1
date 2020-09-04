@@ -23,17 +23,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="140dp"
                 android:text="Обновить"
                 app:layout_constraintEnd_toEndOf="@+id/Weather"
                 app:layout_constraintTop_toBottomOf="@+id/Weather" />
 
             <TextView
                 android:id="@+id/Weather"
-                android:layout_width="332dp"
-                android:layout_height="129dp"
+                android:layout_width="317dp"
+                android:layout_height="85dp"
                 android:layout_marginStart="51dp"
-                android:layout_marginTop="136dp"
+                android:layout_marginTop="208dp"
                 android:layout_marginEnd="60dp"
                 android:autoText="true"
                 android:background="#E8D7D7"
@@ -44,7 +44,7 @@
                 android:typeface="normal"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.435"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
@@ -96,6 +96,8 @@
                 android:layout_height="39dp"
                 android:layout_marginStart="48dp"
                 android:editable="false"
+                android:enabled="false"
+                android:visibility="invisible"
                 android:text="ИНФО"
                 app:layout_constraintEnd_toEndOf="@+id/Weather"
                 app:layout_constraintStart_toEndOf="@+id/City"
@@ -113,6 +115,8 @@
                 android:id="@+id/mytown"
                 android:layout_width="100dp"
                 android:layout_height="56dp"
+                android:enabled="false"
+                android:visibility="invisible"
                 android:text="Мой город"
                 app:layout_constraintBottom_toTopOf="@+id/wind"
                 app:layout_constraintEnd_toEndOf="@+id/information"

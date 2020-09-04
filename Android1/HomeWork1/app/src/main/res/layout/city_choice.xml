@@ -31,70 +31,27 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
+
+
         android:layout_height="match_parent"
-
-
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/confirmation"
-                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-                android:layout_width="107dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="152dp"
-                android:layout_marginBottom="20dp"
-                android:background="#3F51B5"
-                android:bufferType="normal"
-                android:fontFamily="sans-serif-black"
-                android:stateListAnimator="@android:anim/anticipate_interpolator"
-                android:text="Показать"
-                android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/full_Info"
-                app:layout_constraintTop_toBottomOf="@+id/humidity"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <!--    <EditText-->
-            <!--        android:id="@+id/cityName1"-->
-            <!--        android:layout_width="wrap_content"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:layout_marginTop="112dp"-->
-            <!--        android:layout_marginEnd="136dp"-->
-            <!--        android:backgroundTint="#3F51B5"-->
-            <!--        android:ems="10"-->
-            <!--        android:inputType="textPersonName"-->
-            <!--        android:text="Введите город"-->
-            <!--        app:layout_constraintEnd_toEndOf="parent"-->
-            <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-            <Switch
-                android:id="@+id/full_Info"
-                style="@style/Widget.AppCompat.CompoundButton.Switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="244dp"
-                android:text="Выводить подробную информацию"
-                android:textColor="@android:color/background_dark"
-                app:layout_constraintStart_toStartOf="@+id/cityNameLayout"
-                app:layout_constraintTop_toTopOf="@+id/cityNameLayout" />
-
             <CheckBox
                 android:id="@+id/wind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="120dp"
                 android:text="Ветер"
                 android:textColor="@android:color/background_dark"
-                app:layout_constraintStart_toStartOf="@+id/full_Info"
-                app:layout_constraintTop_toBottomOf="@+id/full_Info" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cityName" />
 
             <CheckBox
                 android:id="@+id/pressure"
@@ -130,39 +87,30 @@
                 android:id="@+id/cityName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Введите город"
+                android:hint="@string/cityInput"
                 android:textColor="@android:color/background_dark"
                 android:textColorHint="@android:color/background_dark"
                 app:layout_constraintTop_toBottomOf="@+id/cityNameLayout"
                 tools:layout_editor_absoluteX="6dp" />
 
-            <TextView
-                android:id="@+id/hum_TxtV"
-                android:layout_width="79dp"
-                android:layout_height="25dp"
-                android:text="hum"
-                app:layout_constraintStart_toEndOf="@+id/humidity"
-                app:layout_constraintTop_toBottomOf="@+id/pressure" />
-
-            <TextView
-                android:id="@+id/pres_TxtV"
-                android:layout_width="65dp"
-                android:layout_height="25dp"
-                app:layout_constraintStart_toEndOf="@+id/pressure"
-                app:layout_constraintTop_toTopOf="@+id/pressure" />
-
-            <WebView
-                android:id="@+id/web"
-                android:layout_width="409dp"
-                android:layout_height="197dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="1dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cityName" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/confirmation"
+        android:layout_width="107dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginBottom="20dp"
+        android:background="#3F51B5"
+        android:bufferType="normal"
+        android:fontFamily="sans-serif-black"
+        android:stateListAnimator="@android:anim/anticipate_interpolator"
+        android:text="Показать"
+        android:textColor="#FFFFFF"
+        app:layout_anchor="@+id/nestedScrollView"
+        app:layout_anchorGravity="center" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

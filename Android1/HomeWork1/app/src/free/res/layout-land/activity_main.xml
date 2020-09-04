@@ -7,6 +7,9 @@
     android:visibility="visible"
     tools:context="com.example.hw1.MainActivity">
 
+    <!-- В версии Free  нельзя посмотреть информацию о выбранном городе
+         и поиск по местоположению(соответсвующие кнопки скрыты и заблокированы) -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -97,6 +100,8 @@
                 android:layout_marginStart="48dp"
                 android:editable="false"
                 android:text="ИНФО"
+                android:enabled="false"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="@+id/Weather"
                 app:layout_constraintStart_toEndOf="@+id/City"
                 app:layout_constraintTop_toTopOf="@+id/City" />
@@ -114,6 +119,8 @@
                 android:layout_width="100dp"
                 android:layout_height="56dp"
                 android:text="Мой город"
+                android:enabled="false"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/wind"
                 app:layout_constraintEnd_toEndOf="@+id/information"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -121,5 +128,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <!--    </ScrollView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
