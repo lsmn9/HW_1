@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B6D8D5"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="51dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <fragment
+                android:id="@+id/fragment"
+                android:name="com.example.hw1.Fragmet1"
+                android:layout_width="409dp"
+                android:layout_height="226dp"
+                android:layout_marginTop="208dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Weather" />
+
+            <Button
+                android:id="@+id/refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="140dp"
+                android:layout_marginEnd="24dp"
+                android:text="Обновить"
+                app:layout_constraintEnd_toEndOf="@+id/Weather"
+                app:layout_constraintTop_toBottomOf="@+id/Weather" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="75dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/Weather"
+                app:layout_constraintStart_toEndOf="@+id/City"
+                />
+
+            <TextView
+                android:id="@+id/Weather"
+                android:layout_width="317dp"
+                android:layout_height="85dp"
+                android:layout_marginStart="51dp"
+                android:layout_marginTop="128dp"
+                android:layout_marginEnd="60dp"
+                android:autoText="true"
+                android:background="#E8D7D7"
+                android:fontFamily="sans-serif-black"
+                android:text="+18..+20"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="36sp"
+                android:typeface="normal"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/City"
+                android:layout_width="171dp"
+                android:layout_height="33dp"
+                android:layout_marginBottom="44dp"
+                android:background="#E8D7D7"
+                android:enabled="true"
+                android:freezesText="true"
+                android:text="London"
+                android:textColor="#0B0A0A"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/Weather"
+                app:layout_constraintStart_toStartOf="@+id/Weather" />
+
+            <EditText
+                android:id="@+id/ApiKey"
+                android:layout_width="278dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="11dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/forecast"
+                android:layout_width="313dp"
+                android:layout_height="122dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="43dp"
+                android:background="#EFC5C5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Weather" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!--    </ScrollView>-->
+</androidx.constraintlayout.widget.ConstraintLayout>
