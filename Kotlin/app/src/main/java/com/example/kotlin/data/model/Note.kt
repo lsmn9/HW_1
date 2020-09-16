@@ -1,5 +1,6 @@
 package com.example.kotlin.data.model
 
+<<<<<<< HEAD
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -37,3 +38,6 @@ enum class Color {
     VIOLET,
     PINK
 }
+=======
+class Note(val title: String, val note: String, val color: Int)
+>>>>>>> 5a17e6d087ceb108bb43ae6073369653655144e9
