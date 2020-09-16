@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="item_title_fromEnd">8dp</dimen>
+    <dimen name="item_title_fromStart">8dp</dimen>
+    <dimen name="item_title_fromTop">8dp</dimen>
+    <dimen name="item_body_margin">8dp</dimen>
+    <dimen name="cards_fromEnd">4dp</dimen>
+    <dimen name="cards_fromStart">4dp</dimen>
+    <dimen name="cards_fromTop">4dp</dimen>
+    <dimen name="cards_fromBottom">4dp</dimen>
+    <dimen name="padding_default">50dp</dimen>
+</resources>
