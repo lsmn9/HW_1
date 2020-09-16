@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name" translatable="false">MyWeather</string>
+    <string name="app_name" size = "20dp" translatable="false">MyWeather</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
-
+    <string name="menu_all">Выбрать все</string>
+    <string name="menu_nothing">Очистить</string>
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
@@ -16,4 +17,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cityInput">Введите город</string>
 </resources>
