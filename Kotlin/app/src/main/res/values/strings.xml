@@ -3,4 +3,8 @@
     <string name="main_title">GeekBrains Notes</string>
     <string name="item_body">Я Kotlin бы выучил только за то, что на нем разрабатывал Вортон!</string>
     <string name="item_title">Geekbrains + Kotlin forever</string>
+<<<<<<< HEAD
+    <string name="new_note_title">Новая заметка</string>
+=======
+>>>>>>> 5a17e6d087ceb108bb43ae6073369653655144e9
 </resources>
