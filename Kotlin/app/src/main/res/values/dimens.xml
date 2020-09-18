@@ -9,8 +9,5 @@
     <dimen name="cards_fromStart">4dp</dimen>
     <dimen name="cards_fromTop">4dp</dimen>
     <dimen name="cards_fromBottom">4dp</dimen>
-<<<<<<< HEAD
     <dimen name="padding_default">50dp</dimen>
-=======
->>>>>>> 5a17e6d087ceb108bb43ae6073369653655144e9
 </resources>

@@ -14,24 +14,26 @@ import com.example.kotlin.R
 import com.example.kotlin.data.model.Color
 import com.example.kotlin.data.model.Note
 import com.example.kotlin.extentions.DATE_TIME_FORMAT
+import com.example.kotlin.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_note.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 private const val SAVE_DELAY = 2000L
 
-class NoteActivity : AppCompatActivity() {
+class NoteActivity : BaseActivity<Note?, NoteViewState>() {
 
-    private lateinit var viewModel: NoteViewModel
+    override val viewModel: NoteViewModel by lazy { ViewModelProviders.of(this).get(NoteViewModel::class.java) }
+    override val layoutRes: Int = R.layout.activity_note
     private var note: Note? = null
 
     companion object {
         private val EXTRA_NOTE = "extra.NOTE"
 
-        fun getStartIntent(context: Context, note: Note?): Intent {
+        fun getStartIntent(context: Context, noteId: String?): Intent {
             val intent = Intent(context, NoteActivity::class.java)
-            intent.putExtra(EXTRA_NOTE, note)
-            Log.d("!!!!!!!intent!!!!!!!!!!", note.toString())
+            intent.putExtra(EXTRA_NOTE, noteId)
+            Log.d("!!!!!!!intent!!!!!!!!!!", noteId.toString())
             return intent
         }
     }
@@ -44,7 +46,6 @@ class NoteActivity : AppCompatActivity() {
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -53,21 +54,23 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_note)
-        note = intent.getParcelableExtra(EXTRA_NOTE)
-        Log.d("!!!!!!onCreate!!!!!!!!!!!!", note.toString())
+        val noteId = intent.getStringExtra(EXTRA_NOTE)
         setSupportActionBar(toolbar)
-        viewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = if (note != null) {
-            SimpleDateFormat(DATE_TIME_FORMAT,
-                    Locale.getDefault()).format(note!!.lastChanged)
-        } else {
-            getString(R.string.new_note_title)
+
+        noteId?.let {
+            viewModel.loadNote(it)
         }
 
-        initView()
+        if (noteId == null ) {
+            supportActionBar?.title = getString(R.string.new_note_title)
+
+        }
+
+        titleEt.addTextChangedListener(textChangeListener)
+        bodyEt.addTextChangedListener(textChangeListener)
     }
+
     private fun initView() {
         if (note != null) {
             titleEt.setText(note?.title ?: "")
@@ -81,8 +84,6 @@ class NoteActivity : AppCompatActivity() {
                 Color.GREEN -> R.color.color_green
                 Color.BLUE -> R.color.color_blue
             }
-            titleEt.addTextChangedListener(textChangeListener)
-            bodyEt.addTextChangedListener(textChangeListener)
             toolbar.setBackgroundColor(resources.getColor(color))
 
         }
@@ -112,12 +113,18 @@ class NoteActivity : AppCompatActivity() {
 
                 if (note != null) viewModel.saveChanges(note!!)
             }
-
         }, SAVE_DELAY)
+
     }
 
-    private fun createNewNote(): Note = Note(UUID.randomUUID().toString(),
+    private fun createNewNote(): Note =
+            Note(UUID.randomUUID().toString(),
             titleEt.text.toString(),
             bodyEt.text.toString())
+
+    override fun renderData(data: Note?) {
+        this.note = data
+        initView()
+    }
 
 }
