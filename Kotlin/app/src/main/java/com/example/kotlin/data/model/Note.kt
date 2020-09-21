@@ -1,15 +1,14 @@
 package com.example.kotlin.data.model
 
-<<<<<<< HEAD
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 
 @Parcelize
-data class Note(val id: String,
-                val title: String,
-                val note: String,
+data class Note(val id: String= "",
+                val title: String= "",
+                val note: String="",
                 val color: Color = Color.WHITE,
                 val lastChanged: Date = Date()): Parcelable {
 
@@ -38,6 +37,3 @@ enum class Color {
     VIOLET,
     PINK
 }
-=======
-class Note(val title: String, val note: String, val color: Int)
->>>>>>> 5a17e6d087ceb108bb43ae6073369653655144e9

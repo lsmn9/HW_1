@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             app:title="@string/main_title"
             app:layout_scrollFlags="scroll|enterAlways" />
-<<<<<<< HEAD
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -44,18 +43,4 @@
         app:layout_anchor="@id/mainRecycler"
         app:layout_behavior=".ui.common.FABBehavior"/>
 
-=======
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mainRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/item_note"/>
-
->>>>>>> 5a17e6d087ceb108bb43ae6073369653655144e9
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
