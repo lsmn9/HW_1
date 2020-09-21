@@ -8,15 +8,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.example.kotlin.R
-import com.example.kotlin.data.model.Color
 import com.example.kotlin.data.model.Note
-import com.example.kotlin.extentions.DATE_TIME_FORMAT
+import com.example.kotlin.extentions.format
+import com.example.kotlin.extentions.getColorInt
 import com.example.kotlin.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_note.*
-import java.text.SimpleDateFormat
+
 import java.util.*
 
 private const val SAVE_DELAY = 2000L
@@ -72,20 +71,13 @@ class NoteActivity : BaseActivity<Note?, NoteViewState>() {
     }
 
     private fun initView() {
-        if (note != null) {
-            titleEt.setText(note?.title ?: "")
-            bodyEt.setText(note?.note ?: "")
-            val color = when(note!!.color) {
-                Color.WHITE -> R.color.color_white
-                Color.VIOLET -> R.color.color_violet
-                Color.YELLOW -> R.color.color_yello
-                Color.RED -> R.color.color_red
-                Color.PINK -> R.color.color_pink
-                Color.GREEN -> R.color.color_green
-                Color.BLUE -> R.color.color_blue
-            }
-            toolbar.setBackgroundColor(resources.getColor(color))
+        note?.run {
+            supportActionBar?.title = lastChanged.format()
 
+            titleEt.setText(title)
+            bodyEt.setText(note)
+
+            toolbar.setBackgroundColor(color.getColorInt(this@NoteActivity))
         }
     }
 
