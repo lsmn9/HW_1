@@ -8,7 +8,7 @@ import java.util.*
 @Parcelize
 data class Note(val id: String= "",
                 val title: String= "",
-                val note: String="",
+                val body: String="",
                 val color: Color = Color.WHITE,
                 val lastChanged: Date = Date()): Parcelable {
 
@@ -26,14 +26,15 @@ data class Note(val id: String= "",
     override fun hashCode(): Int {
         return id.hashCode()
     }
+
+    enum class Color {
+        WHITE,
+        YELLOW,
+        GREEN,
+        BLUE,
+        RED,
+        VIOLET,
+        PINK
+    }
 }
 
-enum class Color {
-    WHITE,
-    YELLOW,
-    GREEN,
-    BLUE,
-    RED,
-    VIOLET,
-    PINK
-}

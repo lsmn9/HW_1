@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.kotlin.R
 import com.example.kotlin.data.errors.NoAuthException
+import com.example.kotlin.ui.customviews.ColorPickerView
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_note.*
+import org.koin.android.ext.android.inject
 
 abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
 
@@ -17,11 +20,12 @@ abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
         private const val RC_SIGN_IN = 4242
     }
 
-    abstract val viewModel: BaseViewModel<T, S>
+    open val viewModel: BaseViewModel<T,S> by inject()
     abstract val layoutRes: Int?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         layoutRes?.let { setContentView(it) }
         viewModel.getViewState().observe(this, Observer<S> { t ->
             t?.apply {
@@ -67,4 +71,6 @@ abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
             show()
         }
     }
+
+
 }

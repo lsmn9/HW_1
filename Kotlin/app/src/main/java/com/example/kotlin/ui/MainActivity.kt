@@ -10,18 +10,22 @@ import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import com.example.kotlin.R
 import com.example.kotlin.data.model.Note
+import com.example.kotlin.data.provider.FireStoreProvider
 import com.example.kotlin.ui.base.BaseActivity
 import com.example.kotlin.ui.note.NoteActivity
 import com.example.kotlin.ui.splash.SplashActivity
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.LogoutListener {
 
-    override val viewModel: MainViewModel by lazy { ViewModelProviders.of(this).get(MainViewModel::class.java) }
+    val fireStoreProvider: FireStoreProvider by inject()
     override val layoutRes: Int = R.layout.activity_main
     private lateinit var adapter: MainAdapter
+    override val viewModel: MainViewModel by viewModel()
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, MainActivity::class.java)
@@ -31,11 +35,9 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.Lo
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
 
-        adapter = MainAdapter( object : MainAdapter.OnItemClickListener {
-            override fun onItemClick(note: Note) {
-                openNoteScreen(note)
-            }
-        })
+        adapter = MainAdapter {
+            NoteActivity.getStartIntent(this, it.id)
+        }
         mainRecycler.adapter = adapter
 
         fab.setOnClickListener(object : View.OnClickListener {
