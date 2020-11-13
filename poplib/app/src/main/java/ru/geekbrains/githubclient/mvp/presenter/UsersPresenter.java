@@ -6,6 +6,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 import moxy.MvpPresenter;
 import ru.geekbrains.githubclient.GithubApplication;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUser;
@@ -70,10 +74,17 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
 
     }
 
+
     private void loadData() {
-        List<GithubUser> users = usersRepo.getUsers();
-        usersListPresenter.users.addAll(users);
+        //List<GithubUser> users =  usersRepo.getUsers(); // предыдущий вариант
+       // usersListPresenter.users.addAll(users); // оставил для себя пока что
+
+        usersRepo.getUsersRx().subscribe((g)->addUserToList(g));
         getViewState().updateList();
+    }
+
+    private void addUserToList(GithubUser githubUser){
+        usersListPresenter.users.add(githubUser);
     }
 
     public static String getChosenLogin() {
