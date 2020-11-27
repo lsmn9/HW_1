@@ -1,19 +1,16 @@
 package ru.geekbrains.githubclient.mvp.presenter;
 
-import android.content.Intent;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.core.Scheduler;
 import moxy.MvpPresenter;
 import ru.geekbrains.githubclient.GithubApplication;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUser;
-import ru.geekbrains.githubclient.mvp.model.entity.GithubUserRepo;
+import ru.geekbrains.githubclient.mvp.model.repo.IGithubUsersRepo;
+import ru.geekbrains.githubclient.mvp.model.repo.retrofit.RetrofitGithubUsersRepo;
 import ru.geekbrains.githubclient.mvp.presenter.list.IUserListPresenter;
 import ru.geekbrains.githubclient.mvp.view.UserItemView;
 import ru.geekbrains.githubclient.mvp.view.UsersView;
@@ -24,10 +21,19 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
     private static final String TAG = UsersPresenter.class.getSimpleName();
 
     private static final boolean VERBOSE = true;
-    private static String chosenLogin;
-    private GithubUserRepo usersRepo = new GithubUserRepo();
+    private static String chosen;
     private Router router = GithubApplication.getApplication().getRouter();
 
+    private final IGithubUsersRepo usersRepo;
+    private final Scheduler scheduler;
+
+    public UsersPresenter(Scheduler scheduler) {
+        this.scheduler = scheduler;
+
+        this.usersRepo = new RetrofitGithubUsersRepo(GithubApplication.INSTANCE.getApi());
+
+        System.out.println(GithubApplication.INSTANCE.getApi());
+    }
 
     private class UsersListPresenter implements IUserListPresenter {
 
@@ -38,8 +44,8 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
             if (VERBOSE) {
                 Log.v(TAG, " onItemClick " + view.getPos());
             }
-
-            chosenLogin = "login " + (view.getPos() + 1);
+            GithubUser user = users.get(view.getPos());
+            chosen = user.getLogin();
 
             router.navigateTo(new Screens.UserOwnScreen());
 
@@ -47,8 +53,10 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
 
         @Override
         public void bindView(UserItemView view) {
+
             GithubUser user = users.get(view.getPos());
             view.setLogin(user.getLogin());
+            view.loadAvatar(user.getAvatarUrl());
 
         }
 
@@ -76,19 +84,21 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
 
 
     private void loadData() {
-        //List<GithubUser> users =  usersRepo.getUsers(); // предыдущий вариант
-       // usersListPresenter.users.addAll(users); // оставил для себя пока что
-
-        usersRepo.getUsersRx().subscribe((g)->addUserToList(g));
-        getViewState().updateList();
+        usersRepo.getUsers().observeOn(scheduler).subscribe(repos -> {
+            usersListPresenter.users.clear();
+            usersListPresenter.users.addAll(repos);
+            getViewState().updateList();
+        }, (e) -> {
+            Log.w(TAG, "Error" + e.getMessage());
+        });
     }
 
     private void addUserToList(GithubUser githubUser){
         usersListPresenter.users.add(githubUser);
     }
 
-    public static String getChosenLogin() {
-        return chosenLogin;
+    public static String getChosen() {
+        return chosen;
     }
 
     public boolean backPressed() {

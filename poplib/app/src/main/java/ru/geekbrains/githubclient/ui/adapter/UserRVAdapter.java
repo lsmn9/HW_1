@@ -4,19 +4,22 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ru.geekbrains.githubclient.R;
-import ru.geekbrains.githubclient.mvp.presenter.list.IListPresenter;
 import ru.geekbrains.githubclient.mvp.presenter.list.IUserListPresenter;
 import ru.geekbrains.githubclient.mvp.view.UserItemView;
+import ru.geekbrains.githubclient.mvp.view.image.GlideImageLoader;
+import ru.geekbrains.githubclient.mvp.view.image.IImageLoader;
 
 public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder> {
 
     IUserListPresenter presenter;
+    private static IImageLoader<ImageView> imageLoader = new GlideImageLoader();
 
     public UserRVAdapter(IUserListPresenter presenter) {
        this.presenter = presenter;
@@ -38,7 +41,6 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.position = position;
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -53,21 +55,29 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return presenter.getCount();
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements UserItemView {
         TextView textView;
+        ImageView avatarView;
         int position;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textView = (TextView)itemView.findViewById(R.id.tv_login);
+            avatarView = (ImageView)itemView.findViewById(R.id.iv_avatar);
         }
 
         @Override
         public void setLogin(String text) {
             textView.setText(text);
+        }
+
+        @Override
+        public void loadAvatar(String url) {
+            imageLoader.loadImage(url, avatarView);
         }
 
         @Override

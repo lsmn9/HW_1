@@ -6,23 +6,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
+import moxy.presenter.ProvidePresenter;
 import ru.geekbrains.githubclient.R;
 import ru.geekbrains.githubclient.mvp.presenter.UserOwnPresenter;
 import ru.geekbrains.githubclient.mvp.view.UserOwnView;
 import ru.geekbrains.githubclient.ui.BackButtonListener;
+import ru.geekbrains.githubclient.ui.adapter.UserOwnAdapter;
+
 
 public class UserOwnFragment extends MvpAppCompatFragment implements BackButtonListener, UserOwnView {
 
-private View view;
-private TextView login;
+    private TextView head;
+    private RecyclerView recyclerView;
+    private UserOwnAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private View view;
 
     @InjectPresenter
-    UserOwnPresenter userPresenter;
+    UserOwnPresenter userOwnPresenter;
+
+    @ProvidePresenter
+    UserOwnPresenter provideUserOwnPresenter(){
+        return new UserOwnPresenter(AndroidSchedulers.mainThread());
+    }
 
     public static UserOwnFragment getInstance(int data) {
         UserOwnFragment fragment = new UserOwnFragment();
@@ -34,22 +49,37 @@ private TextView login;
         return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.user_own_screen, container, false);
-        login = view.findViewById(R.id.own_login);
-        login.setText(userPresenter.getLogin());
+        recyclerView = view.findViewById(R.id.rv_repos);
+        head = view.findViewById(R.id.tv_head);
         return view;
     }
 
     @Override
     public boolean backPressed() {
-        return userPresenter.backPressed();
+        return userOwnPresenter.backPressed();
     }
 
     @Override
     public void init() {
-    //на будущее
+        head.setText(userOwnPresenter.getLogin());
+        layoutManager = new LinearLayoutManager(view.getContext());
+        adapter = new UserOwnAdapter(userOwnPresenter.getUserOwnListPresenter());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void updateList() {
+        adapter.notifyDataSetChanged();
     }
 }

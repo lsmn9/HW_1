@@ -1,20 +1,16 @@
 package ru.geekbrains.githubclient.mvp.model.entity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import com.google.gson.annotations.Expose;
 
-import io.reactivex.rxjava3.core.Observable;
 
 public class GithubUserRepo {
-    private List<GithubUser> repositories = new ArrayList<>(Arrays.asList(
-            new GithubUser("login1"),
-            new GithubUser("login2"),
-            new GithubUser("login3"),
-            new GithubUser("login4"),
-            new GithubUser("login5")));
+    @Expose private String id;
+    @Expose private String name;
+    @Expose private String fullName;
 
-   public Observable<GithubUser> getUsersRx() {return Observable.fromIterable(repositories);}
-// public List<GithubUser> getUsers() {return Collections.unmodifiableList(repositories); } // оставил предыдущий
+    public GithubUserRepo (String name){this.name = name;}
+
+    public String getId() {return id;}
+    public String getName() {return  name;}
+    public String getFullName() {return fullName;}
 }
