@@ -1,6 +1,6 @@
 package ru.geekbrains.githubclient.mvp.presenter.list;
 
-import ru.geekbrains.githubclient.mvp.view.IItemView;
+import ru.geekbrains.githubclient.mvp.view.lists.IItemView;
 
 public interface IListPresenter<V extends IItemView> {
     void onItemClick(V view);

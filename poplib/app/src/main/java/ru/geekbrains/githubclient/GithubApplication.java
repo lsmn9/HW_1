@@ -3,12 +3,12 @@ package ru.geekbrains.githubclient;
 import android.app.Application;
 
 import ru.geekbrains.githubclient.mvp.model.api.IDataSource;
-import ru.geekbrains.githubclient.mvp.model.api.IRepoSource;
 import ru.terrakok.cicerone.Cicerone;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
 
 public class GithubApplication extends Application {
+    public static final boolean DEBUG = true;
     public static GithubApplication INSTANCE;
     private ApiHolder apiHolder;
 
@@ -42,6 +42,5 @@ public class GithubApplication extends Application {
 
     public IDataSource getApi() { return apiHolder.getDataSource();}
 
-    public IRepoSource getRepoApi() {return apiHolder.getRepoSource();}
 
 }

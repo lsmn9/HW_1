@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ru.geekbrains.githubclient.R;
 import ru.geekbrains.githubclient.mvp.presenter.list.IUserListPresenter;
-import ru.geekbrains.githubclient.mvp.view.UserItemView;
+import ru.geekbrains.githubclient.mvp.view.lists.UserItemView;
 import ru.geekbrains.githubclient.mvp.view.image.GlideImageLoader;
 import ru.geekbrains.githubclient.mvp.view.image.IImageLoader;
 

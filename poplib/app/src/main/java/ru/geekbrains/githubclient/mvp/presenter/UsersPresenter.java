@@ -10,9 +10,8 @@ import moxy.MvpPresenter;
 import ru.geekbrains.githubclient.GithubApplication;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUser;
 import ru.geekbrains.githubclient.mvp.model.repo.IGithubUsersRepo;
-import ru.geekbrains.githubclient.mvp.model.repo.retrofit.RetrofitGithubUsersRepo;
 import ru.geekbrains.githubclient.mvp.presenter.list.IUserListPresenter;
-import ru.geekbrains.githubclient.mvp.view.UserItemView;
+import ru.geekbrains.githubclient.mvp.view.lists.UserItemView;
 import ru.geekbrains.githubclient.mvp.view.UsersView;
 import ru.geekbrains.githubclient.navigation.Screens;
 import ru.terrakok.cicerone.Router;
@@ -22,17 +21,15 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
 
     private static final boolean VERBOSE = true;
     private static String chosen;
-    private Router router = GithubApplication.getApplication().getRouter();
+    private Router router;
 
     private final IGithubUsersRepo usersRepo;
     private final Scheduler scheduler;
 
-    public UsersPresenter(Scheduler scheduler) {
+    public UsersPresenter(Scheduler scheduler, IGithubUsersRepo usersRepo, Router router) {
         this.scheduler = scheduler;
-
-        this.usersRepo = new RetrofitGithubUsersRepo(GithubApplication.INSTANCE.getApi());
-
-        System.out.println(GithubApplication.INSTANCE.getApi());
+        this.router = router;
+        this.usersRepo = usersRepo;
     }
 
     private class UsersListPresenter implements IUserListPresenter {

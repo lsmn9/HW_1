@@ -8,11 +8,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.geekbrains.githubclient.mvp.model.api.IDataSource;
-import ru.geekbrains.githubclient.mvp.model.api.IRepoSource;
 
 public class ApiHolder {
     private IDataSource dataSource;
-    private IRepoSource repoSource;
 
     ApiHolder() {
         Gson gson = new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -25,7 +23,6 @@ public class ApiHolder {
                 .build();
 
         dataSource = retrofit.create(IDataSource.class);
-        repoSource = retrofit.create(IRepoSource.class);
     }
 
 
@@ -33,5 +30,4 @@ public class ApiHolder {
         return dataSource;
     }
 
-    public IRepoSource getRepoSource() { return repoSource; }
 }
