@@ -6,27 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
-import moxy.presenter.ProvidePresenter;
-import ru.geekbrains.githubclient.GithubApplication;
 import ru.geekbrains.githubclient.R;
-import ru.geekbrains.githubclient.mvp.model.entity.room.Database;
-import ru.geekbrains.githubclient.mvp.model.repo.IRepoRepo;
-import ru.geekbrains.githubclient.mvp.model.repo.retrofit.RetrofitRepoRepo;
 import ru.geekbrains.githubclient.mvp.presenter.UserOwnPresenter;
 import ru.geekbrains.githubclient.mvp.view.UserOwnView;
 import ru.geekbrains.githubclient.ui.BackButtonListener;
 import ru.geekbrains.githubclient.ui.adapter.UserOwnAdapter;
-import ru.geekbrains.githubclient.ui.network.AndroidNetworkStatus;
-import ru.terrakok.cicerone.Router;
 
 
 public class UserOwnFragment extends MvpAppCompatFragment implements BackButtonListener, UserOwnView {
@@ -40,15 +31,6 @@ public class UserOwnFragment extends MvpAppCompatFragment implements BackButtonL
 
     @InjectPresenter
     UserOwnPresenter userOwnPresenter;
-
-    @ProvidePresenter
-    UserOwnPresenter provideUserOwnPresenter(){
-        IRepoRepo repoRepo = new RetrofitRepoRepo(GithubApplication.INSTANCE.getApi(),
-                                                    new AndroidNetworkStatus(),
-                                                    Database.getInstance());
-        Router router = GithubApplication.getApplication().getRouter();
-        return new UserOwnPresenter(AndroidSchedulers.mainThread(), repoRepo, router);
-    }
 
     public static UserOwnFragment getInstance(int data) {
         UserOwnFragment fragment = new UserOwnFragment();

@@ -5,8 +5,11 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.core.Scheduler;
 import moxy.MvpPresenter;
+import ru.geekbrains.githubclient.GithubApplication;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUserRepo;
 import ru.geekbrains.githubclient.mvp.model.repo.IRepoRepo;
 import ru.geekbrains.githubclient.mvp.presenter.list.IUserOwnListPresenter;
@@ -18,18 +21,20 @@ import ru.terrakok.cicerone.Router;
 
 public class UserOwnPresenter extends MvpPresenter<UserOwnView> {
 
-    private Router router;
-    private final IRepoRepo repoRepo;
-    private final Scheduler scheduler;
+    @Inject
+    IRepoRepo repoRepo;
+    @Inject
+    Router router;
+    @Inject
+    Scheduler scheduler;
     private  String  login = UsersPresenter.getChosen();
     private static String repoName;
     private static int forksCount;
     private String path = "/users/" + login + "/repos";
 
-    public UserOwnPresenter(Scheduler scheduler, IRepoRepo repoRepo, Router router) {
-        this.scheduler = scheduler;
-        this.repoRepo = repoRepo;
-        this.router = router;
+    public UserOwnPresenter() {
+
+        GithubApplication.INSTANCE.getAppComponent().inject(this);
     }
 
     private class UserOwnListPresenter implements IUserOwnListPresenter {
@@ -94,7 +99,7 @@ public class UserOwnPresenter extends MvpPresenter<UserOwnView> {
 
 
     public boolean backPressed() {
-        // на будущее
+        router.exit();
         return true;
 
     }

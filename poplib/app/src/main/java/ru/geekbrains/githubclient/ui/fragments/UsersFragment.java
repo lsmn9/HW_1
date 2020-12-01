@@ -10,21 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
-import moxy.presenter.ProvidePresenter;
-import ru.geekbrains.githubclient.GithubApplication;
 import ru.geekbrains.githubclient.R;
-import ru.geekbrains.githubclient.mvp.model.entity.room.Database;
-import ru.geekbrains.githubclient.mvp.model.repo.IGithubUsersRepo;
-import ru.geekbrains.githubclient.mvp.model.repo.retrofit.RetrofitGithubUsersRepo;
 import ru.geekbrains.githubclient.mvp.presenter.UsersPresenter;
 import ru.geekbrains.githubclient.mvp.view.UsersView;
 import ru.geekbrains.githubclient.ui.BackButtonListener;
 import ru.geekbrains.githubclient.ui.adapter.UserRVAdapter;
-import ru.geekbrains.githubclient.ui.network.AndroidNetworkStatus;
-import ru.terrakok.cicerone.Router;
+
 
 public class UsersFragment extends MvpAppCompatFragment implements UsersView, BackButtonListener {
 
@@ -37,13 +30,16 @@ public class UsersFragment extends MvpAppCompatFragment implements UsersView, Ba
     @InjectPresenter
     UsersPresenter usersPresenter;
 
-    @ProvidePresenter
-    UsersPresenter provideUsersPresenter() {
-        IGithubUsersRepo usersRepo= new RetrofitGithubUsersRepo(GithubApplication.INSTANCE.getApi(),
-                                                new AndroidNetworkStatus(), Database.getInstance());
-        Router router = GithubApplication.getApplication().getRouter();
-        return new UsersPresenter(AndroidSchedulers.mainThread(), usersRepo, router);
-    }
+//    @ProvidePresenter
+//    UsersPresenter provideUsersPresenter() {
+//        IGithubUsersRepo usersRepo= new RetrofitGithubUsersRepo(
+//                new AndroidNetworkStatus(),
+//                new RoomGithubUsersCache(
+//                        GithubApplication.INSTANCE.getApi(),
+//                        Database.getInstance()));
+//        Router router = GithubApplication.getApplication().getRouter();
+//        return new UsersPresenter(AndroidSchedulers.mainThread(), usersRepo, router);
+//    }
 
     public static UsersFragment getInstance(int data) {
         UsersFragment fragment = new UsersFragment();

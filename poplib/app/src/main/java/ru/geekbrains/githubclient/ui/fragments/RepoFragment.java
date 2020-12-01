@@ -9,16 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
 import ru.geekbrains.githubclient.R;
 import ru.geekbrains.githubclient.mvp.presenter.RepoPresenter;
 import ru.geekbrains.githubclient.mvp.view.RepoView;
 import ru.geekbrains.githubclient.ui.BackButtonListener;
-import ru.geekbrains.githubclient.ui.adapter.UserOwnAdapter;
+
 
 
 public class RepoFragment extends MvpAppCompatFragment implements RepoView, BackButtonListener {
@@ -45,7 +44,6 @@ public class RepoFragment extends MvpAppCompatFragment implements RepoView, Back
         super.onCreate(savedInstanceState);
 
     }
-
 
     @Nullable
     @Override

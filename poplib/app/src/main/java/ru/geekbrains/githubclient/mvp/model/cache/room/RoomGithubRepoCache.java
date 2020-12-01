@@ -3,7 +3,10 @@ package ru.geekbrains.githubclient.mvp.model.cache.room;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.core.Single;
+import ru.geekbrains.githubclient.GithubApplication;
 import ru.geekbrains.githubclient.mvp.model.api.IDataSource;
 import ru.geekbrains.githubclient.mvp.model.cache.IRepoCache;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUserRepo;
@@ -13,12 +16,13 @@ import ru.geekbrains.githubclient.mvp.model.entity.room.RoomGithubRepository;
 
 public class RoomGithubRepoCache implements IRepoCache {
 
-    private IDataSource api;
-    private Database db;
+    @Inject
+    IDataSource api;
+    @Inject
+    Database db;
 
     public  RoomGithubRepoCache(IDataSource api, Database db){
-        this.api = api;
-        this.db = db;
+        GithubApplication.INSTANCE.getAppComponent().inject(this);
     }
 
 
