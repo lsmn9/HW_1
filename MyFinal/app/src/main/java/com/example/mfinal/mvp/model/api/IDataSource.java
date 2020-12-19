@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 
 public interface IDataSource {
     @Headers({"x-rapidapi-key: 5f22da48cdmsh5a73c4ec7baaa99p13575ajsn0d157f8c4653",
-            "x-rapidapi-host: covid-193.p.rapidapi.com"})
+              "x-rapidapi-host: covid-193.p.rapidapi.com"})
     @GET("/statistics")
     Call<Responses> getResponses(@Query("country") String country);
 }

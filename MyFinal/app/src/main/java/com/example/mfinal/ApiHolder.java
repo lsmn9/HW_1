@@ -12,11 +12,7 @@ public class ApiHolder {
     @Inject
     IDataSource api;
 
-    ApiHolder() {
-
-        CovidStatsApp.INSTANCE.getAppComponent().inject(this);
-    }
-
+    ApiHolder() { CovidStatsApp.INSTANCE.getAppComponent().inject(this);}
 
     public IDataSource getResponse() {
         return response;

@@ -14,16 +14,16 @@ import androidx.annotation.Nullable;
 import com.example.mfinal.R;
 import com.example.mfinal.mvp.presenter.SearchPresenter;
 import com.example.mfinal.mvp.view.SearchView;
+import com.example.mfinal.ui.BackButtonListener;
 
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
 
-public class SearchFragment extends MvpAppCompatFragment implements SearchView {
+public class SearchFragment extends MvpAppCompatFragment implements SearchView, BackButtonListener {
 
-    private View view;
-    private TextView tv;
-    private Button btn;
-    private EditText editText;;
+    private TextView info;
+    private Button showBtn;
+    private EditText search;
     private String country;
 
     @InjectPresenter
@@ -42,39 +42,37 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.search_fragment, container, false);
-        tv = view.findViewById(R.id.tv);
-        btn = view.findViewById(R.id.button);
-        editText = view.findViewById(R.id.et);
-        onBtnClick();
+        View view = inflater.inflate(R.layout.search_fragment, container, false);
+        showBtn = view.findViewById(R.id.show_button);
+        info = view.findViewById(R.id.tv_info);
+        search = view.findViewById(R.id.search_line);
+
+        onShowBtnClick();
 
         return view;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public void init() {
 
     }
 
+
     @Override
-    public void onBtnClick() {
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                country = editText.getText().toString();
-                System.out.println(country);
-                searchPresenter.afterPush(country);
-                tv.setText(searchPresenter.getActCases());
-
-            }
+    public void onShowBtnClick() {
+        showBtn.setOnClickListener(view -> {
+            //берем страну и приводим к одному регистру, чтобы в базу корректно положить
+            country = search.getText().toString().toUpperCase();
+            searchPresenter.afterPush(country);
+            //здесь косяк. Выводит предыдущее значение, я примерно понимаю почему,
+            // но пока не смог исправить
+            info.setText(searchPresenter.getMsg());
         });
+    }
 
+    @Override
+    public boolean backPressed() {
+       return searchPresenter.backPressed();
     }
 }

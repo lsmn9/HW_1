@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+
 public class Responses {
 
     @SerializedName("response")
@@ -19,29 +20,41 @@ public class Responses {
 
 // там в api такой переход [response]->{0}->{country, cases[], etc}
     // не придумал как его обойти, сделал так
-    public class Massive{
+public class Massive {
 
-        public Massive(){}
+    public Massive() {
+    }
 
-        @SerializedName("cases")
-        @Expose private Cases cases;
+    @SerializedName("cases")
+    @Expose
+    private Cases cases;
 
-        @SerializedName("country")
-        @Expose private String country;
+    public Cases getCases() {
+        return cases;
+    }
 
-        public String getDay() {
-            return day;
-        }
+    @SerializedName("country")
+    @Expose
+    private String country;
 
-        @SerializedName("day")
-        @Expose private String day;
+    public String getCountry() { return country;}
 
+    @SerializedName("deaths")
+    @Expose
+    private Deaths deaths;
 
-        public Cases getCases() {
-            return cases;
-        }
+    public Deaths getDeaths() {
+        return deaths;
+    }
 
-        public String getCountry(){return  country;}
+    @SerializedName("day")
+    @Expose
+    private String day;
+
+    public String getDay() {
+        return day;
+    }
+
     }
 
 }

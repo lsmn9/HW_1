@@ -7,20 +7,45 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/act_cases_label"
+        android:id="@+id/cases_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Сейчас заражены:  "
+        android:text="@string/cases"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/cases"
+        android:id="@+id/cases_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/act_cases_label"
-        app:layout_constraintStart_toEndOf="@+id/act_cases_label"
-        app:layout_constraintTop_toTopOf="@+id/act_cases_label" />
+        app:layout_constraintStart_toStartOf="@+id/deaths_amount"
+        app:layout_constraintTop_toTopOf="@+id/cases_label" />
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/cases_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/deaths_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/deaths"
+        app:layout_constraintStart_toStartOf="@+id/cases_label"
+        app:layout_constraintTop_toBottomOf="@+id/cases_label" />
+
+    <TextView
+        android:id="@+id/deaths_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/deaths_label"
+        app:layout_constraintTop_toTopOf="@+id/deaths_label" />
 </androidx.constraintlayout.widget.ConstraintLayout>

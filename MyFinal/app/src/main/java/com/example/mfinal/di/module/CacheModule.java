@@ -19,15 +19,10 @@ import dagger.Provides;
     @Module
     public class CacheModule {
 
-        //TODO: убрать ui поток!!!! сделаю, используя Rx, пока просто проверить нужно было
         @Singleton
         @Provides
         Database database() {
             return Room.databaseBuilder(CovidStatsApp.INSTANCE, Database.class, Database.DB_NAME)
-                    // пока четко не определился, что лежать будет в базе,
-                    //периодически использую, чтобы кучу миграций не делать. Уберу.
-                   // .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
                     .build();
         }
 

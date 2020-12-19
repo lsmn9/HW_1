@@ -49,7 +49,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             if (fragment instanceof BackButtonListener && ((BackButtonListener)fragment).backPressed()) {

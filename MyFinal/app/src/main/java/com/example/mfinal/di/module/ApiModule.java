@@ -1,8 +1,6 @@
 package com.example.mfinal.di.module;
 
 import com.example.mfinal.mvp.model.api.IDataSource;
-import com.example.mfinal.mvp.model.network.INetworkStatus;
-import com.example.mfinal.ui.network.AndroidNetworkStatus;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -21,12 +19,6 @@ public class ApiModule {
         return "https://covid-193.p.rapidapi.com/";
     }
 
-//    @Singleton
-//    @Provides
-//    Gson gson() {
-//        return new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-//                .excludeFieldsWithoutExposeAnnotation().create();
-//    }
 
     @Singleton
     @Provides
@@ -36,12 +28,6 @@ public class ApiModule {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(IDataSource.class);
-    }
-
-    @Singleton
-    @Provides
-    INetworkStatus networkStatus() {
-        return new AndroidNetworkStatus();
     }
 
 }
