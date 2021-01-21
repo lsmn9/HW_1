@@ -5,6 +5,27 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="fabCustomSize">100dp</item>
+        <item name="borderWidth">2dp</item>
+
+    </style>
+    <style name="RedBlack" parent="AppTheme">
+        <item name="android:backgroundTint">@color/red_black_back_color</item>
+        <item name="android:background">@color/red_black_back_color</item>
+        <item name="android:textColor">@color/red_black_text_color</item>
+        <item name="boxStrokeColor">@color/red_black_text_color</item>
+        <item name="helperTextTextColor">@color/red_black_text_color</item>
+        <item name="hintTextColor">@color/red_black_text_color</item>
+    </style>
+
+
+    <style name="Acid" parent="AppTheme">
+        <item name="android:backgroundTint">@color/acid_back_color</item>
+        <item name="android:background">@color/acid_back_color</item>
+        <item name="android:textColor">@color/acid_text_color</item>
+        <item name="boxStrokeColor">@color/acid_text_color</item>
+        <item name="helperTextTextColor">@color/acid_text_color</item>
+        <item name="hintTextColor">@color/acid_text_color</item>
     </style>
 
 </resources>

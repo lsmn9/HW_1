@@ -78,7 +78,6 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_search -> Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show()
             R.id.app_bar_settings -> activity?.supportFragmentManager
                 ?.beginTransaction()
-                ?.hide(main_fragment)
                 ?.add(R.id.main_container, ChipsFragment())?.addToBackStack(null)
                 ?.commit()
             android.R.id.home -> {
