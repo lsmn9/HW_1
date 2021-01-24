@@ -1,39 +1,38 @@
-package com.example.matdis.POD
+package com.example.matdis.api.town
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.matdis.BuildConfig
+import com.example.matdis.POD.PODRetrofitImpl
+import com.example.matdis.POD.PODServerResponseData
+import com.example.matdis.POD.PictureOfTheDayData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+class MyTownViewModel
+    (private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
+     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl(),
+     val apiKey: String = BuildConfig.NASA_API_KEY): ViewModel() {
 
-class PictureOfTheDayViewModel(
-    private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
-    private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl(),
-    val apiKey: String = BuildConfig.NASA_API_KEY
-
-) :
-    ViewModel() {
-
-
-    fun getPOD(): LiveData<PictureOfTheDayData> {
-        sendServerRequest()
+    fun getMyTownPic(): LiveData<PictureOfTheDayData> {
+        sendTownRequest()
         return liveDataForViewToObserve
     }
 
+    private fun sendTownRequest() {
 
-
-    private fun sendServerRequest() {
         liveDataForViewToObserve.value = PictureOfTheDayData.Loading(null)
-
-
+        val lon: Float = 55f
+        val lat: Float = 36.43f
+        val dat: String= "2020-06-12"
+        val dim: Float = 0.15f
 
         if (apiKey.isBlank()) {
             PictureOfTheDayData.Error(Throwable("You need API key"))
         } else {
-            retrofitImpl.getRetrofitImpl().getPictureofDay(apiKey).enqueue(object :
+            retrofitImpl.getRetrofitImpl().getPictureOfMyTown(lon, lat, dat, dim, apiKey).enqueue(object :
                 Callback<PODServerResponseData> {
                 override fun onResponse(
                     call: Call<PODServerResponseData>,
@@ -59,5 +58,6 @@ class PictureOfTheDayViewModel(
                 }
             })
         }
+
     }
 }

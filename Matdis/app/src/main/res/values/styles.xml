@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="fabCustomSize">100dp</item>
+        <item name="fabCustomSize">20dp</item>
         <item name="borderWidth">2dp</item>
 
     </style>

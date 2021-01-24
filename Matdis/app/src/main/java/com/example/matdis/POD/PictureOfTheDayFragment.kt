@@ -2,11 +2,10 @@ package com.example.matdis.POD
 
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -16,10 +15,10 @@ import androidx.lifecycle.ViewModelProviders
 import coil.api.load
 import com.example.matdis.MainActivity
 import com.example.matdis.R
+import com.example.matdis.api.ApiActivity
 import com.example.matdis.chips.ChipsFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -46,7 +45,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData()
+        viewModel.getPOD()
             .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
     }
 
@@ -79,6 +78,7 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_settings -> activity?.supportFragmentManager
                 ?.beginTransaction()
                 ?.add(R.id.main_container, ChipsFragment())?.addToBackStack(null)
+                ?.hide(this)
                 ?.commit()
             android.R.id.home -> {
                 activity?.let {
@@ -86,6 +86,7 @@ class PictureOfTheDayFragment : Fragment() {
                         .show(it.supportFragmentManager, "tag")
                 }
             }
+            R.id.app_bar_api -> activity?.let { startActivity(Intent(it, ApiActivity::class.java)) }
         }
 
         return super.onOptionsItemSelected(item)
@@ -124,10 +125,12 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun renderData(data: PictureOfTheDayData) {
+
         when (data) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.url
+
                 val title = serverResponseData.title
                 val description = serverResponseData.explanation
                 if (url.isNullOrEmpty()) {
@@ -135,6 +138,7 @@ class PictureOfTheDayFragment : Fragment() {
                 } else {
                     bottom_sheet_description_header.setTextKeepState(title)
                     bottom_sheet_description.setTextKeepState(description)
+
                     image_view.load(url) {
                         lifecycle(this@PictureOfTheDayFragment)
                         error(R.drawable.ic_load_error_vector)
@@ -147,6 +151,7 @@ class PictureOfTheDayFragment : Fragment() {
             }
             is PictureOfTheDayData.Error -> {
                 Toast.makeText(context, "Нет сети", Toast.LENGTH_SHORT).show()
+                Log.d("!!!!!!!!!!!!!!!", data.toString())
             }
         }
     }
