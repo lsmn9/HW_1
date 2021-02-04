@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".api.ApiActivity"/>
         <activity android:name=".apibottom.ApiBottomActivity"/>
+        <activity android:name=".recycler.RecyclerActivity"/>
+        <activity android:name=".notes.NotesActivity"/>
     </application>
 
 </manifest>
