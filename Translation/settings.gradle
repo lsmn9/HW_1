@@ -1,3 +1,4 @@
+include ':HistoryScreenFeature'
 include Modules.description
 include Modules.app
 include Modules.historyScreen
