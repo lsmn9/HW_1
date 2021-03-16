@@ -6,18 +6,19 @@ import geekbrains.ru.core.BaseActivity
 import geekbrains.ru.history.R
 import geekbrains.ru.history.injectDependencies
 import geekbrains.ru.model.data.AppState
-import geekbrains.ru.model.data.DataModel
+import geekbrains.ru.model.data.userdata.DataModel
 import kotlinx.android.synthetic.main.activity_history.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.scope.currentScope
 
 class HistoryActivity : BaseActivity<AppState, HistoryInteractor>() {
 
     override lateinit var model: HistoryViewModel
+    override val layoutRes = R.layout.activity_history
+
     private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history)
         iniViewModel()
         initViews()
     }
@@ -34,7 +35,7 @@ class HistoryActivity : BaseActivity<AppState, HistoryInteractor>() {
     private fun iniViewModel() {
         check(history_activity_recyclerview.adapter == null) { "The ViewModel should be initialised first" }
         injectDependencies()
-        val viewModel: HistoryViewModel by viewModel()
+        val viewModel: HistoryViewModel by currentScope.inject()
         model = viewModel
         model.subscribe().observe(this@HistoryActivity, Observer<AppState> { renderData(it) })
     }

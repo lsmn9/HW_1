@@ -1,8 +1,8 @@
 package geekbrains.ru.translator.utils
 
 import geekbrains.ru.model.data.AppState
-import geekbrains.ru.model.data.DataModel
-import geekbrains.ru.model.data.Meanings
+import geekbrains.ru.model.data.userdata.DataModel
+import geekbrains.ru.model.data.userdata.Meanings
 
 fun parseOnlineSearchResults(data: AppState): AppState {
     return AppState.Success(mapResult(data, true))
@@ -34,7 +34,12 @@ private fun getSuccessResultData(
             }
         } else {
             for (searchResult in dataModels) {
-                newDataModels.add(DataModel(searchResult.text, arrayListOf()))
+                newDataModels.add(
+                    DataModel(
+                        searchResult.text,
+                        arrayListOf()
+                    )
+                )
             }
         }
     }
@@ -48,11 +53,22 @@ private fun parseOnlineResult(
         val newMeanings = arrayListOf<Meanings>()
         for (meaning in dataModel.meanings!!) {
             if (meaning.translation != null && !meaning.translation!!.translation.isNullOrBlank()) {
-                newMeanings.add(Meanings(meaning.translation, meaning.imageUrl, meaning.transcription))
+                newMeanings.add(
+                    Meanings(
+                        meaning.translation,
+                        meaning.imageUrl,
+                        meaning.transcription
+                    )
+                )
             }
         }
         if (newMeanings.isNotEmpty()) {
-            newDataModels.add(DataModel(dataModel.text, newMeanings))
+            newDataModels.add(
+                DataModel(
+                    dataModel.text,
+                    newMeanings
+                )
+            )
         }
     }
 }
