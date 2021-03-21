@@ -2,8 +2,11 @@ package geekbrains.ru.core
 
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.Observer
 import geekbrains.ru.core.viewmodel.BaseViewModel
 import geekbrains.ru.core.viewmodel.Interactor
@@ -23,9 +26,16 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(layoutRes)
         subscribeToNetworkChange()
+        makeFullScreen()
 
+    }
+
+    private fun makeFullScreen(){
+        window.setFlags(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION,
+            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
     }
 
     override fun onResume() {

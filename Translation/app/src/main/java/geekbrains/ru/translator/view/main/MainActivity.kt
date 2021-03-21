@@ -1,11 +1,18 @@
 package geekbrains.ru.translator.view.main
 
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Insets
+import android.os.Build
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import android.provider.Settings
+import android.util.Log
+import android.view.*
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+import androidx.annotation.RequiresApi
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.*
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -39,6 +46,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     override val layoutRes = R.layout.activity_main
     override lateinit var model: MainViewModel
+
 
 
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
@@ -77,6 +85,13 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         super.onCreate(savedInstanceState)
         iniViewModel()
         initViews()
+
+        val bottomPading = searchFAB.marginBottom
+        ViewCompat.setOnApplyWindowInsetsListener(searchFAB){view, insets->
+            view.updatePadding(bottom = bottomPading+ insets.systemWindowInsetBottom)
+            insets
+        }
+
     }
 
     override fun setDataToAdapter(data: List<DataModel>) {
@@ -85,6 +100,8 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.history_menu, menu)
+        menu?.findItem(R.id.menu_screen_settings)?.isVisible =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -113,7 +130,14 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                     }
                 true
             }
+            R.id.menu_screen_settings -> {
+                startActivityForResult(
+                    Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY), 42
+                )
+                true
+            }
             else -> super.onOptionsItemSelected(item)
+
         }
     }
 
@@ -126,7 +150,15 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     }
 
     private fun initViews() {
+
         searchFAB.setOnClickListener(fabClickListener)
         mainActivityRecyclerView.adapter = adapter
+
+        val bottomPadding = resources
+            .getDimension(baseContext.resources
+                .getIdentifier("navigation_bar_height", "dimen", "android"))
+        working_frame_layout.getChildAt(1).marginBottom.div(bottomPadding.toInt())
+        Log.d("Отступ=========", bottomPadding.toString())
     }
+
 }
