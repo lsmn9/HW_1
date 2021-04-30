@@ -35,7 +35,7 @@ public interface ResposesDao {
         @Query("SELECT * FROM RoomResponses WHERE country = :country LIMIT 5")
         RoomResponses findByCountry(String country);
 
-        @Query("SELECT activeCase FROM RoomResponses WHERE country = :country LIMIT 5")
+        @Query("SELECT activeCases FROM RoomResponses WHERE country = :country LIMIT 5")
         Integer findCasesByCountry(String country);
 
         @Query("SELECT day FROM RoomResponses WHERE country = :country LIMIT 5")
