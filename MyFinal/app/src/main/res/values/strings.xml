@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MyFinal</string>
+    <string name="cases">Cases:</string>
+    <string name="deaths">Deaths:</string>
+    <string name="show_button">Show</string>
+    <string name="new_cases">new:</string>
+    <string name="active_cases">active:</string>
+    <string name="critycal_cases">critycal:</string>
+    <string name="recovered_cases">recovered:</string>
+    <string name="oneMPop_cases">to1Mpop:</string>
+    <string name="new_deaths">new:</string>
+    <string name="oneMpop_deaths">to1Mpop:</string>
+</resources>
