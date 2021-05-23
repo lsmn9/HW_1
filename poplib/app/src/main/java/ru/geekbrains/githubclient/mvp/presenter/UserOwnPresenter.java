@@ -5,28 +5,36 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.core.Scheduler;
 import moxy.MvpPresenter;
 import ru.geekbrains.githubclient.GithubApplication;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUserRepo;
 import ru.geekbrains.githubclient.mvp.model.repo.IRepoRepo;
-import ru.geekbrains.githubclient.mvp.model.repo.retrofit.RetrofitRepoRepo;
 import ru.geekbrains.githubclient.mvp.presenter.list.IUserOwnListPresenter;
-import ru.geekbrains.githubclient.mvp.view.UserOwnItemView;
+import ru.geekbrains.githubclient.mvp.view.lists.UserOwnItemView;
 import ru.geekbrains.githubclient.mvp.view.UserOwnView;
+import ru.geekbrains.githubclient.navigation.Screens;
+import ru.terrakok.cicerone.Router;
 
 
 public class UserOwnPresenter extends MvpPresenter<UserOwnView> {
 
-    private final IRepoRepo repoRepo;
-    private final Scheduler scheduler;
-    private String login = UsersPresenter.getChosen();
+    @Inject
+    IRepoRepo repoRepo;
+    @Inject
+    Router router;
+    @Inject
+    Scheduler scheduler;
+    private  String  login = UsersPresenter.getChosen();
+    private static String repoName;
+    private static int forksCount;
     private String path = "/users/" + login + "/repos";
 
-    public UserOwnPresenter(Scheduler scheduler) {
-        this.scheduler = scheduler;
-        this.repoRepo = new RetrofitRepoRepo(GithubApplication.INSTANCE.getRepoApi(), path);
-        System.out.println(GithubApplication.INSTANCE.getRepoApi());
+    public UserOwnPresenter() {
+
+        GithubApplication.INSTANCE.getAppComponent().inject(this);
     }
 
     private class UserOwnListPresenter implements IUserOwnListPresenter {
@@ -36,13 +44,17 @@ public class UserOwnPresenter extends MvpPresenter<UserOwnView> {
 
         @Override
         public void onItemClick(UserOwnItemView view) {
-
+            GithubUserRepo userRepo = userRepos.get(view.getPos());
+            repoName = userRepo.getName();
+            forksCount = userRepo.getForksCount();
+            router.navigateTo(new Screens.UserRepoScreen());
         }
 
         @Override
         public void bindView(UserOwnItemView view) {
             GithubUserRepo userRepo = userRepos.get(view.getPos());
             view.setName(userRepo.getName());
+
         }
 
         @Override
@@ -66,7 +78,7 @@ public class UserOwnPresenter extends MvpPresenter<UserOwnView> {
     }
 
     private void loadRepo() {
-        repoRepo.getUsersRepo().observeOn(scheduler).
+        repoRepo.getUsersRepo(path).observeOn(scheduler).
                 subscribe(
                         r -> {
                             usersOwnListPresenter.userRepos.clear();
@@ -77,13 +89,17 @@ public class UserOwnPresenter extends MvpPresenter<UserOwnView> {
                         });
     }
 
-    public String getLogin() {
+    public  String getLogin() {
         return login;
     }
 
+    public static String getRepoName(){return repoName;}
+
+    public static int getForksCount(){return forksCount;}
+
 
     public boolean backPressed() {
-        // на будущее
+        router.exit();
         return true;
 
     }

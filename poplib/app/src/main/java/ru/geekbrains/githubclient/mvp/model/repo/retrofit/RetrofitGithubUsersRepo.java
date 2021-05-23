@@ -3,28 +3,38 @@ package ru.geekbrains.githubclient.mvp.model.repo.retrofit;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import ru.geekbrains.githubclient.mvp.model.api.IDataSource;
+import ru.geekbrains.githubclient.GithubApplication;
+import ru.geekbrains.githubclient.mvp.model.cache.IUsersCache;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUser;
+import ru.geekbrains.githubclient.mvp.model.network.INetworkStatus;
 import ru.geekbrains.githubclient.mvp.model.repo.IGithubUsersRepo;
 
 
 public class RetrofitGithubUsersRepo implements IGithubUsersRepo {
-    private IDataSource api;
 
+    @Inject
+    INetworkStatus networkStatus;
 
-    public RetrofitGithubUsersRepo(IDataSource api) {
-        this.api = api;
+    @Inject
+    IUsersCache usersCache;
+
+    public RetrofitGithubUsersRepo(INetworkStatus status, IUsersCache usersCache) {
+        GithubApplication.INSTANCE.getAppComponent().inject(this);
+
     }
 
     @Override
     public Single<List<GithubUser>> getUsers() {
-        return api.getUsers().subscribeOn(Schedulers.io());
+        return networkStatus.isOnlineSingle().flatMap((isOnline) -> usersCache
+                .getUsers(isOnline)).subscribeOn(Schedulers.io());
     }
-
-
-
-
-
 }
+
+
+
+
+

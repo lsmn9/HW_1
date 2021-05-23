@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ru.geekbrains.githubclient.R;
 import ru.geekbrains.githubclient.mvp.presenter.list.IUserOwnListPresenter;
-import ru.geekbrains.githubclient.mvp.view.UserOwnItemView;
+import ru.geekbrains.githubclient.mvp.view.lists.UserOwnItemView;
 
 public class UserOwnAdapter extends RecyclerView.Adapter<UserOwnAdapter.ViewHolder> {
 

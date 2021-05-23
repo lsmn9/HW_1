@@ -6,16 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
-import moxy.presenter.ProvidePresenter;
 import ru.geekbrains.githubclient.R;
 import ru.geekbrains.githubclient.mvp.presenter.UserOwnPresenter;
 import ru.geekbrains.githubclient.mvp.view.UserOwnView;
@@ -31,13 +28,9 @@ public class UserOwnFragment extends MvpAppCompatFragment implements BackButtonL
     private RecyclerView.LayoutManager layoutManager;
     private View view;
 
+
     @InjectPresenter
     UserOwnPresenter userOwnPresenter;
-
-    @ProvidePresenter
-    UserOwnPresenter provideUserOwnPresenter(){
-        return new UserOwnPresenter(AndroidSchedulers.mainThread());
-    }
 
     public static UserOwnFragment getInstance(int data) {
         UserOwnFragment fragment = new UserOwnFragment();

@@ -7,5 +7,5 @@ import ru.geekbrains.githubclient.mvp.model.entity.GithubUserRepo;
 
 public interface IRepoRepo {
 
-    Single<List<GithubUserRepo>> getUsersRepo();
+    Single<List<GithubUserRepo>> getUsersRepo(String login);
 }

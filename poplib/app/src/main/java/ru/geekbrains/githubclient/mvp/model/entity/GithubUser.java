@@ -8,8 +8,10 @@ public class GithubUser {
     @Expose private String avatarUrl;
     @Expose private String reposUrl;
 
-    public GithubUser(String login) {
+    public GithubUser(String login, String avatar, String repoUrl) {
         this.login = login;
+        this.avatarUrl = avatar;
+        this.reposUrl = repoUrl;
     }
 
     public String getLogin() {

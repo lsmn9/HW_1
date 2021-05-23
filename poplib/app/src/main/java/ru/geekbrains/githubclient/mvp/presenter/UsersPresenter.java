@@ -5,34 +5,35 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.core.Scheduler;
 import moxy.MvpPresenter;
 import ru.geekbrains.githubclient.GithubApplication;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUser;
 import ru.geekbrains.githubclient.mvp.model.repo.IGithubUsersRepo;
-import ru.geekbrains.githubclient.mvp.model.repo.retrofit.RetrofitGithubUsersRepo;
 import ru.geekbrains.githubclient.mvp.presenter.list.IUserListPresenter;
-import ru.geekbrains.githubclient.mvp.view.UserItemView;
+import ru.geekbrains.githubclient.mvp.view.lists.UserItemView;
 import ru.geekbrains.githubclient.mvp.view.UsersView;
 import ru.geekbrains.githubclient.navigation.Screens;
 import ru.terrakok.cicerone.Router;
 
 public class UsersPresenter extends MvpPresenter<UsersView> {
     private static final String TAG = UsersPresenter.class.getSimpleName();
-
     private static final boolean VERBOSE = true;
+
+    @Inject
+    IGithubUsersRepo usersRepo;
+    @Inject
+    Router router;
+    @Inject
+    Scheduler scheduler;
+
     private static String chosen;
-    private Router router = GithubApplication.getApplication().getRouter();
 
-    private final IGithubUsersRepo usersRepo;
-    private final Scheduler scheduler;
+    public UsersPresenter() {
 
-    public UsersPresenter(Scheduler scheduler) {
-        this.scheduler = scheduler;
-
-        this.usersRepo = new RetrofitGithubUsersRepo(GithubApplication.INSTANCE.getApi());
-
-        System.out.println(GithubApplication.INSTANCE.getApi());
+        GithubApplication.INSTANCE.getAppComponent().inject(this);
     }
 
     private class UsersListPresenter implements IUserListPresenter {
@@ -102,7 +103,7 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
     }
 
     public boolean backPressed() {
-       // router.exit();
+        router.exit();
         return true;
 
     }
