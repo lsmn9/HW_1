@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Translation.iml" filepath="$PROJECT_DIR$/.idea/modules/Translation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HistoryScreenFeature/Translation.HistoryScreenFeature.iml" filepath="$PROJECT_DIR$/.idea/modules/HistoryScreenFeature/Translation.HistoryScreenFeature.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Translation.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Translation.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Translation.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/Translation.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Translation.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Translation.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/description/Translation.description.iml" filepath="$PROJECT_DIR$/.idea/modules/description/Translation.description.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/historyscreen/Translation.historyscreen.iml" filepath="$PROJECT_DIR$/.idea/modules/historyscreen/Translation.historyscreen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/Translation.model.iml" filepath="$PROJECT_DIR$/.idea/modules/model/Translation.model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/repository/Translation.repository.iml" filepath="$PROJECT_DIR$/.idea/modules/repository/Translation.repository.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/utils/Translation.utils.iml" filepath="$PROJECT_DIR$/.idea/modules/utils/Translation.utils.iml" />
+    </modules>
+  </component>
+</project>

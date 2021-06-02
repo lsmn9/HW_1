@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MatDis</string>
+    <string name="photo_of_the_day_stub">POD!</string>
+    <string name="search_wiki">поиск</string>
+    <string name="wiki_helper_text">введите текст</string>
+    <string name="favourite">favourite</string>
+    <string name="settings">settings</string>
+    <string name="search">поиск</string>
+</resources>
