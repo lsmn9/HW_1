@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements Transmition {
         } else return "";
     }
 
-    private String myTownName() {
+    public String myTownName() {
         String mytown = "";
 
         List<Address> addresses = null;

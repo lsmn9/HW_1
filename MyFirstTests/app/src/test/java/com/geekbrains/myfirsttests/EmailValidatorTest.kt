@@ -1,68 +1,43 @@
 package com.geekbrains.myfirsttests
 
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class EmailValidatorTest {
 
     @Test
     fun emailValidator_CorrectEmailSimple_ReturnsTrue() {
-        assertTrue(EmailValidator.isValidEmail("name@email.com"))
+        EmailValidator.isValidEmail("name@email.com")?.let { assertTrue(it) }
     }
 
     @Test
     fun emailValidator_CorrectEmailSubDomain_ReturnsTrue() {
-        assertTrue(EmailValidator.isValidEmail("name@email.co.uk"))
+        EmailValidator.isValidEmail("name@email.co.uk")?.let { assertTrue(it) }
     }
 
     @Test
     fun emailValidator_InvalidEmailNoTld_ReturnsFalse() {
-        assertFalse(EmailValidator.isValidEmail("name@email"))
+        EmailValidator.isValidEmail("name@email")?.let { assertFalse(it) }
     }
 
     @Test
     fun emailValidator_InvalidEmailDoubleDot_ReturnsFalse() {
-        assertFalse(EmailValidator.isValidEmail("name@email..com"))
+        EmailValidator.isValidEmail("name@email..com")?.let { assertFalse(it) }
     }
 
     @Test
     fun emailValidator_InvalidEmailNoUsername_ReturnsFalse() {
-        assertFalse(EmailValidator.isValidEmail("@email.com"))
+        EmailValidator.isValidEmail("@email.com")?.let { assertFalse(it) }
     }
 
     @Test
     fun emailValidator_EmptyString_ReturnsFalse() {
-        assertFalse(EmailValidator.isValidEmail(""))
+        EmailValidator.isValidEmail("")?.let { assertFalse(it) }
     }
 
     @Test
     fun emailValidator_NullEmail_ReturnsFalse() {
-        assertFalse(EmailValidator.isValidEmail(null))
-    }
-
-    // отсутствие домена
-    @Test
-    fun emailValidator_InvalidEmailNoDomain_ReturnsFalse() {
-        assertFalse(EmailValidator.isValidEmail("name@email."))
-    }
-
-    //длинный домен
-    @Test
-    fun emailValidator_TooLongDomain_ReturnsFalse() {
-        assertFalse(EmailValidator.isValidEmail("name@email.ThisIsAnExampleOfVeryVeryLongDomain"))
-    }
-
-    //русские буквы
-    @Test
-    fun emailValidator_RussianLetters_ReturnsFalse() {
-        assertFalse(EmailValidator.isValidEmail("имя@email.ru"))
-    }
-
-    //отсутствие собаки
-    @Test
-    fun emailValidator_NoDogEarEmail_ReturnsFalse() {
-        assertFalse(EmailValidator.isValidEmail("nameemail.ru"))
+        EmailValidator.isValidEmail(null)?.let { assertFalse(it) }
     }
 
 }
