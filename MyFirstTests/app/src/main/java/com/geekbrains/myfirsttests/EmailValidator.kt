@@ -2,6 +2,7 @@ package com.geekbrains.myfirsttests
 
 import android.text.Editable
 import android.text.TextWatcher
+import org.jetbrains.annotations.NotNull
 
 import java.util.regex.Pattern
 
@@ -10,7 +11,7 @@ class EmailValidator : TextWatcher {
     internal var isValid = false
 
     override fun afterTextChanged(editableText: Editable) {
-        isValid = isValidEmail(editableText)
+        isValid = isValidEmail(editableText) == true
     }
 
     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
@@ -32,8 +33,9 @@ class EmailValidator : TextWatcher {
                     ")+"
         )
 
-        fun isValidEmail(email: CharSequence?): Boolean {
-            return email != null && EMAIL_PATTERN.matcher(email).matches()
+        fun isValidEmail(email: CharSequence?): Boolean? {
+            if (email!!.length > 10) return null
+            return  EMAIL_PATTERN.matcher(email).matches()
         }
     }
 }
