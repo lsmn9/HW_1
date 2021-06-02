@@ -1,0 +1,4 @@
+com/geekbrains/myfirsttests/databinding/ActivityMainBinding.java
+ com.geekbrains.myfirsttests.databinding.ActivityMainBinding
+com/geekbrains/myfirsttests/BuildConfig.java
+ com.geekbrains.myfirsttests.BuildConfig
