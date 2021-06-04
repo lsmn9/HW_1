@@ -40,4 +40,41 @@ class EmailValidatorTest {
         EmailValidator.isValidEmail(null)?.let { assertFalse(it) }
     }
 
+    // отсутствие домена
+    @Test
+    fun emailValidator_InvalidEmailNoDomain_ReturnsFalse() {
+        EmailValidator.isValidEmail("name@email.")?.let { assertFalse(it) }
+    }
+
+    //длинный домен
+    @Test
+    fun emailValidator_TooLongDomain_ReturnsFalse() {
+        EmailValidator.isValidEmail("name@email.ThisIsAnExampleOfVeryVeryLongDomain")?.let {
+            assertFalse(
+                it
+            )
+        }
+    }
+
+    //русские буквы
+    @Test
+    fun emailValidator_RussianLetters_ReturnsFalse() {
+        EmailValidator.isValidEmail("имя@email.ru")?.let { assertFalse(it) }
+    }
+
+    //отсутствие собаки
+    @Test
+    fun emailValidator_NoDogEarEmail_ReturnsFalse() {
+        EmailValidator.isValidEmail("nameemail.ru")?.let { assertFalse(it) }
+    }
+
+    @Test
+    fun emailValidator_Email_NotNull(){
+        assertNotNull(EmailValidator.isValidEmail("123"))
+    }
+
+    @Test
+    fun emailValidator_Email_Null(){
+        assertNull(EmailValidator.isValidEmail("1233333333333"))
+    }
 }
