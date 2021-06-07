@@ -22,23 +22,27 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
     private static final String TAG = UsersPresenter.class.getSimpleName();
     private static final boolean VERBOSE = true;
 
-    @Inject
+//    @Inject
     IGithubUsersRepo usersRepo;
-    @Inject
+//    @Inject
     Router router;
-    @Inject
+//    @Inject
     Scheduler scheduler;
+
 
     private static String chosen;
 
-    public UsersPresenter() {
+    public UsersPresenter(Scheduler scheduler, IGithubUsersRepo usersRepo, Router router) {
 
-        GithubApplication.INSTANCE.getAppComponent().inject(this);
+        this.router = router;
+        this.scheduler = scheduler;
+        this.usersRepo = usersRepo;
+         //       GithubApplication.INSTANCE.getAppComponent().inject(this);//вернуть
     }
 
-    private class UsersListPresenter implements IUserListPresenter {
+    public class UsersListPresenter implements IUserListPresenter {
 
-        private List<GithubUser> users = new ArrayList<>();
+        public List<GithubUser> users = new ArrayList<>();
 
         @Override
         public void onItemClick(UserItemView view) {
@@ -75,7 +79,7 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
     }
 
     @Override
-    protected void onFirstViewAttach() {
+    public void onFirstViewAttach() {
         super.onFirstViewAttach();
 
         getViewState().init();
@@ -84,7 +88,7 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
     }
 
 
-    private void loadData() {
+    public void loadData() {
         usersRepo.getUsers().observeOn(scheduler).subscribe(repos -> {
             usersListPresenter.users.clear();
             usersListPresenter.users.addAll(repos);
@@ -94,7 +98,7 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
         });
     }
 
-    private void addUserToList(GithubUser githubUser){
+    public void addUserToList(GithubUser githubUser){
         usersListPresenter.users.add(githubUser);
     }
 

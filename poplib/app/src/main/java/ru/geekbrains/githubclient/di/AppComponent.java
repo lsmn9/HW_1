@@ -18,6 +18,7 @@ import ru.geekbrains.githubclient.mvp.presenter.MainPresenter;
 import ru.geekbrains.githubclient.mvp.presenter.RepoPresenter;
 import ru.geekbrains.githubclient.mvp.presenter.UserOwnPresenter;
 import ru.geekbrains.githubclient.mvp.presenter.UsersPresenter;
+import ru.geekbrains.githubclient.ui.fragments.UsersFragment;
 
 
 @Singleton
@@ -42,4 +43,5 @@ public interface AppComponent {
     void inject(RetrofitRepoRepo retrofitRepoRepo);
     void inject(RoomGithubUsersCache roomGithubUsersCache);
     void inject(RoomGithubRepoCache roomRepoCache);
+    void inject(UsersFragment usersFragment);
 }
