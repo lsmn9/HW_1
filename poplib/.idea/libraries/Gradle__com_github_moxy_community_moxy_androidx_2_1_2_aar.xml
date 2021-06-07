@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.moxy-community:moxy-androidx:2.1.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2e469b69525eb695fd95c5e0c91e50fc/jetified-moxy-androidx-2.1.2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2e469b69525eb695fd95c5e0c91e50fc/jetified-moxy-androidx-2.1.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2e469b69525eb695fd95c5e0c91e50fc/jetified-moxy-androidx-2.1.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/765a6eef8db78d5c89e9fb99bdf36713/jetified-moxy-androidx-2.1.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/765a6eef8db78d5c89e9fb99bdf36713/jetified-moxy-androidx-2.1.2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/765a6eef8db78d5c89e9fb99bdf36713/jetified-moxy-androidx-2.1.2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
