@@ -22,22 +22,18 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
     private static final String TAG = UsersPresenter.class.getSimpleName();
     private static final boolean VERBOSE = true;
 
-//    @Inject
+    @Inject
     IGithubUsersRepo usersRepo;
-//    @Inject
+    @Inject
     Router router;
-//    @Inject
+    @Inject
     Scheduler scheduler;
 
 
     private static String chosen;
 
-    public UsersPresenter(Scheduler scheduler, IGithubUsersRepo usersRepo, Router router) {
-
-        this.router = router;
-        this.scheduler = scheduler;
-        this.usersRepo = usersRepo;
-         //       GithubApplication.INSTANCE.getAppComponent().inject(this);//вернуть
+    public UsersPresenter() {
+                GithubApplication.INSTANCE.getAppComponent().inject(this);
     }
 
     public class UsersListPresenter implements IUserListPresenter {
@@ -88,7 +84,7 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
     }
 
 
-    public void loadData() {
+    private void loadData() {
         usersRepo.getUsers().observeOn(scheduler).subscribe(repos -> {
             usersListPresenter.users.clear();
             usersListPresenter.users.addAll(repos);

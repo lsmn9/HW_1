@@ -43,5 +43,4 @@ public interface AppComponent {
     void inject(RetrofitRepoRepo retrofitRepoRepo);
     void inject(RoomGithubUsersCache roomGithubUsersCache);
     void inject(RoomGithubRepoCache roomRepoCache);
-    void inject(UsersFragment usersFragment);
 }

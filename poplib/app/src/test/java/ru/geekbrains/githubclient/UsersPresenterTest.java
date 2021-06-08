@@ -62,10 +62,16 @@ public class UsersPresenterTest {
     @Mock
     private UserRVAdapter.ViewHolder viewHolder;
 
+    /*
+
+    Чтобы протестить класс нужно убрать из UserPresenter Dagger,
+     */
+
+
     @Before
      public void setUp() {
         MockitoAnnotations.initMocks(this);
-        presenter = new UsersPresenter(scheduler, usersRepo, router);
+//        presenter = new UsersPresenter(scheduler, usersRepo, router);
 
     }
 
