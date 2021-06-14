@@ -2,6 +2,7 @@ package com.geekbrains.tests.view.details
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.geekbrains.tests.R
@@ -20,6 +21,13 @@ class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
         setUI()
     }
 
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        presenter.onDetach()
+
+    }
+
     private fun setUI() {
         val count = intent.getIntExtra(TOTAL_COUNT_EXTRA, 0)
         presenter.setCounter(count)
@@ -31,6 +39,7 @@ class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
     override fun setCount(count: Int) {
         setCountText(count)
     }
+
 
     private fun setCountText(count: Int) {
         totalCountTextView.text =
