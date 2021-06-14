@@ -52,31 +52,6 @@ class MainActivityEspressoTest {
         }
     }
 
-    @Test
-    fun activitySearch_goToDetail(){
-        Intents.init()
-        onView(withId(R.id.toDetailsActivityButton)).perform(click())
-        intended(hasComponent(DetailsActivity::class.java.getName()))
-
-    }
-
-    @Test
-    fun activitySearch_ProgressBar_BeforeClick(){
-        val txt = "Some_text"
-        onView(withId(R.id.searchEditText)).perform(click())
-        onView(withId(R.id.searchEditText)).perform(replaceText(txt), closeSoftKeyboard())
-        onView(withId(R.id.progressBar)).check(matches(withEffectiveVisibility(Visibility.GONE)))
-    }
-
-    @Test
-    fun activitySearch_ProgressBar_AfterClick(){
-        val txt = "Some_text"
-        onView(withId(R.id.searchEditText)).perform(click())
-        onView(withId(R.id.searchEditText)).perform(replaceText(txt), closeSoftKeyboard())
-        onView(withId(R.id.searchEditText)).perform(pressImeActionButton())
-        onView(withId(R.id.progressBar)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-    }
-
 
     @After
     fun close() {
