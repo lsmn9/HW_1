@@ -85,7 +85,7 @@ class DetailsActivityTest {
             val totalCountTextView = it.findViewById<TextView>(R.id.totalCountTextView)
             incrementButton.performClick()
 
-            assertEquals("Number of results: 1", totalCountTextView.text)
+            assertEquals(TEST_NUMBER_OF_RESULTS_ONE, totalCountTextView.text)
         }
     }
 

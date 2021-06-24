@@ -38,7 +38,7 @@ class MainActivityEspressoTest {
         onView(withId(R.id.searchEditText)).perform(pressImeActionButton())
 
         onView(isRoot()).perform(delay())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: 2")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: $TEST_NUMBER")))
 
     }
 
@@ -47,7 +47,7 @@ class MainActivityEspressoTest {
             override fun getConstraints(): Matcher<View> = isRoot()
             override fun getDescription(): String = "wait for $10 seconds"
             override fun perform(uiController: UiController, v: View?) {
-                uiController.loopMainThreadForAtLeast(10000)
+                uiController.loopMainThreadForAtLeast(DELAY)
             }
         }
     }
