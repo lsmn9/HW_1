@@ -1,6 +1,7 @@
 package ru.geekbrains.githubclient.mvp.presenter;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
             }
             GithubUser user = users.get(view.getPos());
             chosen = user.getLogin();
+            Toast.makeText(GithubApplication.INSTANCE, chosen, Toast.LENGTH_SHORT).show();
 
             router.navigateTo(new Screens.UserOwnScreen());
 
