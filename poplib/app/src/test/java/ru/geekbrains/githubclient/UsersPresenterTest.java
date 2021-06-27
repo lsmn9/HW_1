@@ -11,9 +11,11 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.core.Single;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUser;
 import ru.geekbrains.githubclient.mvp.model.repo.IGithubUsersRepo;
 import ru.geekbrains.githubclient.mvp.presenter.UsersPresenter;
+import ru.geekbrains.githubclient.stubs.ScheduleProviderStub;
 import ru.geekbrains.githubclient.ui.adapter.UserRVAdapter;
 import ru.terrakok.cicerone.Router;
 
@@ -51,7 +53,7 @@ public class UsersPresenterTest {
     @Before
      public void setUp() {
         MockitoAnnotations.initMocks(this);
-//        presenter = new UsersPresenter(scheduler, usersRepo, router);
+        presenter = new UsersPresenter(usersRepo, router, new ScheduleProviderStub());
 
     }
 
@@ -78,8 +80,6 @@ public class UsersPresenterTest {
         userItemView.setLogin(login);
         userItemView.loadAvatar(url);
 
-//        presenter.getUsersListPresenter().bindView(userItemView);
-
         verify(userItemView, times(1)).getPos();
         verify(userItemView, times(1)).loadAvatar(url);
         verify(userItemView, times(1)).setLogin(login);
@@ -92,8 +92,6 @@ public class UsersPresenterTest {
         when(users.get(userItemView.getPos())).thenReturn(githubUser);
         userItemView.setLogin(login);
         userItemView.loadAvatar(url);
-
-//        presenter.getUsersListPresenter().bindView(userItemView);
 
         InOrder inOrder = Mockito.inOrder(userItemView);
         inOrder.verify(userItemView).getPos();
@@ -110,4 +108,26 @@ public class UsersPresenterTest {
         Assert.assertEquals(size, users.size());
 
     }
+
+    // корректное получение данных
+    @Test
+    public void loadData_Test(){
+        when(usersRepo.getUsers()).thenReturn(
+                Single.just(users)
+        );
+        presenter.loadData();
+        verify(usersRepo, times(1)).getUsers();
+    }
+
+    // получаем ошибку
+    @Test
+    public void loadDataError_Test(){
+        when(usersRepo.getUsers()).thenReturn(
+                Single.error(new Throwable("error"))
+
+        );
+        presenter.loadData();
+        verify(router, times(1)).exit();
+    }
+
 }
