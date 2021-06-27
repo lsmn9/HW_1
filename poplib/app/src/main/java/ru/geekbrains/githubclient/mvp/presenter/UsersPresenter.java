@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Scheduler;
 import moxy.MvpPresenter;
 import ru.geekbrains.githubclient.GithubApplication;
@@ -23,18 +24,20 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
     private static final String TAG = UsersPresenter.class.getSimpleName();
     private static final boolean VERBOSE = true;
 
-    @Inject
+//    @Inject
     IGithubUsersRepo usersRepo;
-    @Inject
+//    @Inject
     Router router;
-    @Inject
-    Scheduler scheduler;
-
+//    @Inject
+    SchedulerProvider scheduler; // для проверки теста вернуть Scheduler
 
     private static String chosen;
 
-    public UsersPresenter() {
-                GithubApplication.INSTANCE.getAppComponent().inject(this);
+    public UsersPresenter( IGithubUsersRepo usersRepo,Router router,  SchedulerProvider scheduler) {
+                this.usersRepo = usersRepo;
+                this.router = router;
+                this.scheduler = scheduler;
+//        GithubApplication.INSTANCE.getAppComponent().inject(this);
     }
 
     public class UsersListPresenter implements IUserListPresenter {
@@ -79,19 +82,19 @@ public class UsersPresenter extends MvpPresenter<UsersView> {
     @Override
     public void onFirstViewAttach() {
         super.onFirstViewAttach();
-
         getViewState().init();
         loadData();
 
     }
 
 
-    private void loadData() {
-        usersRepo.getUsers().observeOn(scheduler).subscribe(repos -> {
+    public void loadData() {
+        usersRepo.getUsers().observeOn(scheduler.ui()).subscribe(repos -> {
             usersListPresenter.users.clear();
             usersListPresenter.users.addAll(repos);
             getViewState().updateList();
         }, (e) -> {
+            router.exit(); // для проверкт тестов
             Log.w(TAG, "Error" + e.getMessage());
         });
     }
