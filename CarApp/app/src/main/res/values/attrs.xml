@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <declare-styleable name="CarView">-->
-<!--        <attr name="car_body_color" format="color" />-->
-<!--        <attr name="car_lights_color" format="color" />-->
-<!--        <attr name="car_wheels_color" format="color" />-->
-<!--    </declare-styleable>-->
+    <declare-styleable name="CarView">
+        <attr name="car_body_color" format="color" />
+        <attr name="car_lights_color" format="color" />
+        <attr name="car_wheels_color" format="color" />
+    </declare-styleable>
 
 </resources>
