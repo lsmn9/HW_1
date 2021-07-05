@@ -50,6 +50,14 @@ productFlavors {
         buildConfigField "String", "TYPE", '"REAL"'
     }
 }
+    sourceSets {
+        androidTest {
+            java.srcDirs += "src/constants/java"
+        }
+        test {
+            java.srcDirs += "src/constants/java"
+        }
+    }
 }
 
 dependencies {

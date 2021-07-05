@@ -16,6 +16,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    testOptions {
+        animationsDisabled true
+        unitTests.returnDefaultValues = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -59,5 +64,12 @@ dependencies {
 
     //Mockito
     testImplementation "org.mockito:mockito-core:2.19.0"
+
+    //FragmentTest
+    debugImplementation 'androidx.fragment:fragment-testing:1.3.5'
+    //RVTest
+    debugImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+
 
 }

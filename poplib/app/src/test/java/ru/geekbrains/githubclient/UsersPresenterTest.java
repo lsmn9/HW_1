@@ -1,7 +1,5 @@
 package ru.geekbrains.githubclient;
 
-import android.view.View;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,28 +7,18 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.matchers.NotNull;
 
-import java.util.Collections;
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Scheduler;
-import io.reactivex.rxjava3.disposables.Disposable;
-import moxy.viewstate.MvpViewState;
+import io.reactivex.rxjava3.core.Single;
 import ru.geekbrains.githubclient.mvp.model.entity.GithubUser;
 import ru.geekbrains.githubclient.mvp.model.repo.IGithubUsersRepo;
 import ru.geekbrains.githubclient.mvp.presenter.UsersPresenter;
-import ru.geekbrains.githubclient.mvp.view.UsersView;
-import ru.geekbrains.githubclient.navigation.Screens;
+import ru.geekbrains.githubclient.stubs.ScheduleProviderStub;
 import ru.geekbrains.githubclient.ui.adapter.UserRVAdapter;
 import ru.terrakok.cicerone.Router;
-import ru.terrakok.cicerone.Screen;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -62,16 +50,10 @@ public class UsersPresenterTest {
     @Mock
     private UserRVAdapter.ViewHolder viewHolder;
 
-    /*
-
-    Чтобы протестить класс нужно убрать из UserPresenter Dagger,
-     */
-
-
     @Before
      public void setUp() {
         MockitoAnnotations.initMocks(this);
-//        presenter = new UsersPresenter(scheduler, usersRepo, router);
+        presenter = new UsersPresenter(usersRepo, router, new ScheduleProviderStub());
 
     }
 
@@ -98,8 +80,6 @@ public class UsersPresenterTest {
         userItemView.setLogin(login);
         userItemView.loadAvatar(url);
 
-//        presenter.getUsersListPresenter().bindView(userItemView);
-
         verify(userItemView, times(1)).getPos();
         verify(userItemView, times(1)).loadAvatar(url);
         verify(userItemView, times(1)).setLogin(login);
@@ -112,8 +92,6 @@ public class UsersPresenterTest {
         when(users.get(userItemView.getPos())).thenReturn(githubUser);
         userItemView.setLogin(login);
         userItemView.loadAvatar(url);
-
-//        presenter.getUsersListPresenter().bindView(userItemView);
 
         InOrder inOrder = Mockito.inOrder(userItemView);
         inOrder.verify(userItemView).getPos();
@@ -130,4 +108,26 @@ public class UsersPresenterTest {
         Assert.assertEquals(size, users.size());
 
     }
+
+    // корректное получение данных
+    @Test
+    public void loadData_Test(){
+        when(usersRepo.getUsers()).thenReturn(
+                Single.just(users)
+        );
+        presenter.loadData();
+        verify(usersRepo, times(1)).getUsers();
+    }
+
+    // получаем ошибку
+    @Test
+    public void loadDataError_Test(){
+        when(usersRepo.getUsers()).thenReturn(
+                Single.error(new Throwable("error"))
+
+        );
+        presenter.loadData();
+        verify(router, times(1)).exit();
+    }
+
 }
